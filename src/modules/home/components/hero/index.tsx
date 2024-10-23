@@ -6,29 +6,43 @@ const Hero = () => {
   return (
     <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
       <Image
-        src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmFhZXl5bGZqN21odTl0N211ZG8xYTVrajl1aXRkZ3o0YmU2ZnF3MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3q2xWsutZRLaiK5y/giphy.webp"
+        src="https://images.alphacoders.com/200/200263.jpg"
         alt="Bread"
         width={0}
         height={0}
         sizes="100vw"
         unoptimized
-        style={{ width: "100%", height: "auto" }}
+        style={{ width: "100%", height: "127%"}}
+        className="brightness-50"
       />
-      <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:p-32 gap-6">
-        <span className="">
+      <div className="absolute inset-0 z-10 flex flex-col justify-center ml-96 mt-20 small:p-32 gap-6">
+        <span className="space-y-10">
           <Heading
             level="h1"
-            className="text-3xl leading-10 font-normal text-white "
+            className="text-8xl py-2 leading-10 font-normal text-white "
           >
-            Get your bread fresher than ever
+            Frisch
+          </Heading>
+          <Heading
+            level="h1"
+            className="text-8xl py-2 leading-10 font-normal text-white "
+          >
+            gebacken
           </Heading>
           <Heading
             level="h2"
-            className="text-3xl leading-10 text-slate-50"
+            className="text-8xl py-2 leading-10 font-normal text-white"
           >
-            Order online and take away
+            lokal geliebt.
           </Heading>
         </span>
+
+        <div className="mt-10">
+          <a href="/at/store"
+             className="text-lg text-white px-3.5 py-3 bg-blue-500 rounded-lg hover:bg-blue-600 duration-150">
+            Jetzt Bestellen
+          </a>
+        </div>
       </div>
     </div>
   )
