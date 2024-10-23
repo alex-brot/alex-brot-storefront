@@ -7,10 +7,11 @@ EXPOSE 8000
 FROM base as builder
 WORKDIR /app
 COPY . .
+RUN yarn install
 RUN yarn run build
 
 
-FROM base as production
+FROM base
 WORKDIR /app
 
 ENV NODE_ENV=production
