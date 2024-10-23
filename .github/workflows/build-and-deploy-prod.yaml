@@ -74,5 +74,5 @@ jobs:
           branch: auto-bump-prod-image-${{ github.run_number }}
           base: main
           delete-branch: true
-          title: "[${{github.action_repository}}] Automated image version bump to ${{ env.TAG }}"
-          body: "This PR was automatically created by the CI pipeline in the https://github.com/${{ github.repository_owner }}/${{ github.action_repository }} repository to bump the image version of the ${{ github.action_repository }} service to ${{ github.run_number }}."
+          title: "[${{github.repository}}] Automated image version bump to ${{ env.TAG }}"
+          body: "This PR was automatically created by the CI pipeline in the https://github.com/${{ github.repository }} repository to bump the image version of the ${{ github.repository }} service to ${{ github.run_number }}."
