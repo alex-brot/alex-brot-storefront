@@ -16,22 +16,22 @@ const Hero = () => {
         className="brightness-50"
       />
       <div className="absolute inset-0 z-10 flex flex-col justify-center ml-96 mt-20 small:p-32 gap-6">
-        <span className="space-y-10">
+        <span className="leading-10">
           <Heading
             level="h1"
-            className="text-8xl py-2 leading-10 font-normal text-white "
+            className="text-8xl font-normal text-white "
           >
             Frisch
           </Heading>
           <Heading
             level="h1"
-            className="text-8xl py-2 leading-10 font-normal text-white "
+            className="text-8xl font-normal text-white "
           >
             gebacken
           </Heading>
           <Heading
             level="h2"
-            className="text-8xl py-2 leading-10 font-normal text-white"
+            className="text-8xl font-normal text-white"
           >
             lokal geliebt.
           </Heading>
