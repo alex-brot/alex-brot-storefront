@@ -31,13 +31,13 @@ const Hero = () => {
           </Heading>
           <Heading
             level="h2"
-            className="text-8xl font-normal text-white"
+            className="text-8xl pt-5 font-normal text-white"
           >
             lokal geliebt.
           </Heading>
         </span>
 
-        <div className="mt-10">
+        <div className="mt-10 hover:-translate-y-0.5 duration-150">
           <a href="/at/store"
              className="text-lg text-white px-3.5 py-3 bg-blue-500 rounded-lg hover:bg-blue-600 duration-150">
             Jetzt Bestellen
