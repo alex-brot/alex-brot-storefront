@@ -18,7 +18,6 @@ const Hero = () => {
           </>
         }
       />
-      {/* <ItemsSection /> */}
     </ParallaxProvider>
   )
 }
