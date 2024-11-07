@@ -19,13 +19,29 @@ export default async function Nav() {
             </div>
           </div>
 
-          <div className="flex items-center h-full">
+          <div className="flex items-center h-full gap-4">
+            <LocalizedClientLink
+              href="/team"
+              className="txt-compact-medium-plus text-md hover:cursor-pointer hover:underline"
+              data-testid="nav-store-link"
+            >
+              Team
+            </LocalizedClientLink>
+            <div className="h-1 w-1 bg-primary-full"></div>
             <LocalizedClientLink
               href="/"
               className="txt-compact-xlarge-plus text-2xl hover:cursor-pointer uppercase"
               data-testid="nav-store-link"
             >
               Alex Brot
+            </LocalizedClientLink>
+            <div className="h-1 w-1 bg-primary-full"></div>
+            <LocalizedClientLink
+              href="/store"
+              className="txt-compact-medium-plus text-md hover:cursor-pointer hover:underline"
+              data-testid="nav-store-link"
+            >
+              Shop
             </LocalizedClientLink>
           </div>
 
