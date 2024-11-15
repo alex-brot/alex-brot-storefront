@@ -71,11 +71,14 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   }
 
   return (
-    <CollectionTemplate
-      collection={collection}
-      page={page}
-      sortBy={sortBy}
-      countryCode={params.countryCode}
-    />
+    <>
+      <div className="h-16"></div>
+      <CollectionTemplate
+        collection={collection}
+        page={page}
+        sortBy={sortBy}
+        countryCode={params.countryCode}
+      />
+    </>
   )
 }
