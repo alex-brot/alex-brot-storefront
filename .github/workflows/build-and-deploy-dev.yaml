@@ -54,7 +54,9 @@ jobs:
 
       - name: Modify file
         run: |
+          cat ./alex-brot/overlays/dev/kustomization.yaml
           sed -i 's|\(image: ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:\).*|\1${{ github.run_id }}|' ./alex-brot/overlays/dev/kustomization.yaml
+          cat ./alex-brot/overlays/dev/kustomization.yaml
 
       - name: Commit and Push changes
         run: |
