@@ -28,12 +28,16 @@ export default async function Nav() {
               Team
             </LocalizedClientLink>
             <div className="h-1 w-1 bg-primary-full"></div>
+
             <LocalizedClientLink
               href="/"
               className="txt-compact-xlarge-plus text-2xl hover:cursor-pointer uppercase"
               data-testid="nav-store-link"
             >
-              Alex Brot
+              <div className="h-full flex items-center gap-x-4">
+                <Image src="/public-assets/alexBROT_Logo_Vers2.svg" alt="Logo" height="90" width="90"></Image>
+                Alex Brot
+              </div>
             </LocalizedClientLink>
             <div className="h-1 w-1 bg-primary-full"></div>
             <LocalizedClientLink
