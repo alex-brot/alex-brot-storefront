@@ -4,105 +4,95 @@ import { getCategoriesList, getCollectionsList } from "@lib/data"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import MedusaCTA from "@modules/layout/components/medusa-cta"
+import { InstagramIcon } from "hugeicons-react"
 
 export default async function Footer() {
   const { collections } = await getCollectionsList(0, 6)
   const { product_categories } = await getCategoriesList(0, 6)
 
   return (
-    <footer className="border-t border-ui-border-base w-full">
+    <footer className="border-t border-ui-border-base w-full bg-neutral-800 text-white">
       <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            >
-              Alex Brot
-            </LocalizedClientLink>
-          </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {product_categories && product_categories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Categories
-                </span>
-                <ul className="grid grid-cols-1 gap-2" data-testid="footer-categories">
-                  {product_categories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return
-                    }
-
-                    const children =
-                      c.category_children?.map((child) => ({
-                        name: child.name,
-                        handle: child.handle,
-                        id: child.id,
-                      })) || null
-
-                    return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
-                        key={c.id}
-                      >
-                        <LocalizedClientLink
-                          className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
-                          )}
-                          href={`/categories/${c.handle}`}
-                          data-testid="category-link"
-                        >
-                          {c.name}
-                        </LocalizedClientLink>
-                        {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
-                            {children &&
-                              children.map((child) => (
-                                <li key={child.id}>
-                                  <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
-                                    href={`/categories/${child.handle}`}
-                                    data-testid="category-link"
-                                  >
-                                    {child.name}
-                                  </LocalizedClientLink>
-                                </li>
-                              ))}
-                          </ul>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
+        <div className="flex flex-col md:flex-row md:container py-12 justify-between gap-12 md:gap-4">
+          <div className="contact container md:p-0 mt-4 md:w-5/12 sm:7/12">
+            <div className="md:w-5/6 flex flex-col gap-4">
+              <div className="">
+                <h3 className="text-5xl mb-2 text-primary-lightest font-serif">
+                  Kontakt
+                </h3>
+                <Text>
+                  Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et
+                  massa mi. Aliquam in hendrerit urna. Pellentesque sit amet
+                  sapien.
+                </Text>
               </div>
-            )}
-            {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
-                </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
-                    {
-                      "grid-cols-2": (collections?.length || 0) > 3,
-                    }
-                  )}
+              <div className="socials flex gap-2">
+                <LocalizedClientLink
+                  href="#"
+                  className="bg-primary-lightest p-1 hover:bg-neutral-900"
                 >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
-                      <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
-                      >
-                        {c.title}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
-                </ul>
+                  <InstagramIcon
+                    size={38}
+                    className="text-neutral-800 hover:text-primary-light"
+                  />
+                </LocalizedClientLink>
               </div>
-            )}
+              <div>
+                <p>
+                  <LocalizedClientLink
+                    href="tel:+436641234567"
+                    className="hover:underline"
+                  >
+                    +43 664 123 45 67
+                  </LocalizedClientLink>
+                </p>
+                <p>
+                  <LocalizedClientLink
+                    href="mailto:alexbrot@gmail.com"
+                    className="hover:underline"
+                  >
+                    alexbrot@gmail.com
+                  </LocalizedClientLink>
+                </p>
+              </div>
+
+              <div className="impressum hidden md:flex gap-2">
+                <p>
+                  <LocalizedClientLink href="/impressum" className="underline">
+                    Impressum
+                  </LocalizedClientLink>
+                </p>
+                <p>
+                  <LocalizedClientLink
+                    href="/datenschutz"
+                    className="underline"
+                  >
+                    Datenschutz
+                  </LocalizedClientLink>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="map flex-grow">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29844.776134952666!2d13.91694375346868!3d47.90243476775643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4773e2fdb88c7087%3A0xaea76be0d4bcd741!2sScharnstein!5e0!3m2!1sde!2sat!4v1729160951545!5m2!1sde!2sat"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="border-0 w-full h-96"
+            ></iframe>
+          </div>
+          <div className="impressum container md:hidden flex gap-2">
+            <p>
+              <LocalizedClientLink href="/impressum" className="underline">
+                Impressum
+              </LocalizedClientLink>
+            </p>
+            <p>
+              <LocalizedClientLink href="/datenschutz" className="underline">
+                Datenschutz
+              </LocalizedClientLink>
+            </p>
           </div>
         </div>
         <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
