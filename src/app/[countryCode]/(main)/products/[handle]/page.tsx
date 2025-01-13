@@ -1,96 +1,88 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-
-import {
-  getProductByHandle,
-  getProductsList,
-  getRegion,
-  listRegions,
-  retrievePricedProductById,
-} from "@lib/data"
-import { Region } from "@medusajs/medusa"
+import { listProducts } from "@lib/data/products"
+import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
 
 type Props = {
-  params: { countryCode: string; handle: string }
+  params: Promise<{ countryCode: string; handle: string }>
 }
 
 export async function generateStaticParams() {
-  const countryCodes = await listRegions().then((regions) =>
-    regions?.map((r) => r.countries.map((c) => c.iso_2)).flat()
-  )
-
-  if (!countryCodes) {
-    return null
-  }
-
-  const products = await Promise.all(
-    countryCodes.map((countryCode) => {
-      return getProductsList({ countryCode })
-    })
-  ).then((responses) =>
-    responses.map(({ response }) => response.products).flat()
-  )
-
-  const staticParams = countryCodes
-    ?.map((countryCode) =>
-      products.map((product) => ({
-        countryCode,
-        handle: product.handle,
-      }))
+  try {
+    const countryCodes = await listRegions().then((regions) =>
+      regions?.map((r) => r.countries?.map((c) => c.iso_2)).flat()
     )
-    .flat()
 
-  return staticParams
+    if (!countryCodes) {
+      return []
+    }
+
+    const products = await listProducts({
+      countryCode: "US",
+      queryParams: { fields: "handle" },
+    }).then(({ response }) => response.products)
+
+    return countryCodes
+      .map((countryCode) =>
+        products.map((product) => ({
+          countryCode,
+          handle: product.handle,
+        }))
+      )
+      .flat()
+      .filter((param) => param.handle)
+  } catch (error) {
+    console.error(
+      `Failed to generate static paths for product pages: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }.`
+    )
+    return []
+  }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params
   const { handle } = params
-
-  const { product } = await getProductByHandle(handle).then(
-    (product) => product
-  )
-
-  if (!product) {
-    notFound()
-  }
-
-  return {
-    title: `${product.title} | Alex Brot`,
-    description: `${product.title}`,
-    openGraph: {
-      title: `${product.title} | Alex Brot`,
-      description: `${product.title}`,
-      images: product.thumbnail ? [product.thumbnail] : [],
-    },
-  }
-}
-
-const getPricedProductByHandle = async (handle: string, region: Region) => {
-  const { product } = await getProductByHandle(handle).then(
-    (product) => product
-  )
-
-  if (!product || !product.id) {
-    return null
-  }
-
-  const pricedProduct = await retrievePricedProductById({
-    id: product.id,
-    regionId: region.id,
-  })
-
-  return pricedProduct
-}
-
-export default async function ProductPage({ params }: Props) {
   const region = await getRegion(params.countryCode)
 
   if (!region) {
     notFound()
   }
 
-  const pricedProduct = await getPricedProductByHandle(params.handle, region)
+  const product = await listProducts({
+    countryCode: params.countryCode,
+    queryParams: { handle },
+  }).then(({ response }) => response.products[0])
+
+  if (!product) {
+    notFound()
+  }
+
+  return {
+    title: `${product.title} | Medusa Store`,
+    description: `${product.title}`,
+    openGraph: {
+      title: `${product.title} | Medusa Store`,
+      description: `${product.title}`,
+      images: product.thumbnail ? [product.thumbnail] : [],
+    },
+  }
+}
+
+export default async function ProductPage(props: Props) {
+  const params = await props.params
+  const region = await getRegion(params.countryCode)
+
+  if (!region) {
+    notFound()
+  }
+
+  const pricedProduct = await listProducts({
+    countryCode: params.countryCode,
+    queryParams: { handle: params.handle },
+  }).then(({ response }) => response.products[0])
 
   if (!pricedProduct) {
     notFound()

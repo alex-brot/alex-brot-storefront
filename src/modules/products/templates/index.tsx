@@ -1,5 +1,3 @@
-import { Region } from "@medusajs/medusa"
-import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import React, { Suspense } from "react"
 
 import ImageGallery from "@modules/products/components/image-gallery"
@@ -11,10 +9,11 @@ import ProductInfo from "@modules/products/templates/product-info"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
 import { notFound } from "next/navigation"
 import ProductActionsWrapper from "./product-actions-wrapper"
+import { HttpTypes } from "@medusajs/types"
 
 type ProductTemplateProps = {
-  product: PricedProduct
-  region: Region
+  product: HttpTypes.StoreProduct
+  region: HttpTypes.StoreRegion
   countryCode: string
 }
 
@@ -29,7 +28,6 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 
   return (
     <>
-      <div className="h-16"></div>
       <div
         className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
         data-testid="product-container"

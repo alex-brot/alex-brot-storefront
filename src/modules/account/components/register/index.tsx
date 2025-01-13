@@ -1,28 +1,30 @@
 "use client"
 
-import { useFormState } from "react-dom"
-
+import { useActionState } from "react"
 import Input from "@modules/common/components/input"
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
-import { signUp } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { signup } from "@lib/data/customer"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
 }
 
 const Register = ({ setCurrentView }: Props) => {
-  const [message, formAction] = useFormState(signUp, null)
+  const [message, formAction] = useActionState(signup, null)
 
   return (
-    <div className="max-w-sm flex flex-col items-center" data-testid="register-page">
+    <div
+      className="max-w-sm flex flex-col items-center"
+      data-testid="register-page"
+    >
       <h1 className="text-large-semi uppercase mb-6">
-        Become a Broty
+        Become a Medusa Store Member
       </h1>
       <p className="text-center text-base-regular text-ui-fg-base mb-4">
-        Create your Broty profile, and get access to an enhanced
+        Create your Medusa Store Member profile, and get access to an enhanced
         shopping experience.
       </p>
       <form className="w-full flex flex-col" action={formAction}>
@@ -49,7 +51,13 @@ const Register = ({ setCurrentView }: Props) => {
             autoComplete="email"
             data-testid="email-input"
           />
-          <Input label="Phone" name="phone" type="tel" autoComplete="tel" data-testid="phone-input" />
+          <Input
+            label="Phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            data-testid="phone-input"
+          />
           <Input
             label="Password"
             name="password"
@@ -61,7 +69,7 @@ const Register = ({ setCurrentView }: Props) => {
         </div>
         <ErrorMessage error={message} data-testid="register-error" />
         <span className="text-center text-ui-fg-base text-small-regular mt-6">
-          By creating an account, you agree to Alex Brot&apos;s{" "}
+          By creating an account, you agree to Medusa Store&apos;s{" "}
           <LocalizedClientLink
             href="/content/privacy-policy"
             className="underline"
@@ -77,7 +85,9 @@ const Register = ({ setCurrentView }: Props) => {
           </LocalizedClientLink>
           .
         </span>
-        <SubmitButton className="w-full mt-6" data-testid="register-button">Join</SubmitButton>
+        <SubmitButton className="w-full mt-6" data-testid="register-button">
+          Join
+        </SubmitButton>
       </form>
       <span className="text-center text-ui-fg-base text-small-regular mt-6">
         Already a member?{" "}

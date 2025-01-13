@@ -1,23 +1,29 @@
 "use client"
 
-import { Region } from "@medusajs/medusa"
 import { Plus } from "@medusajs/icons"
 import { Button, Heading } from "@medusajs/ui"
-import { useEffect, useState } from "react"
-import { useFormState } from "react-dom"
+import { useEffect, useState, useActionState } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
 import CountrySelect from "@modules/checkout/components/country-select"
 import Input from "@modules/common/components/input"
 import Modal from "@modules/common/components/modal"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
-import { addCustomerShippingAddress } from "@modules/account/actions"
+import { HttpTypes } from "@medusajs/types"
+import { addCustomerAddress } from "@lib/data/customer"
 
-const AddAddress = ({ region }: { region: Region }) => {
+const AddAddress = ({
+  region,
+  addresses,
+}: {
+  region: HttpTypes.StoreRegion
+  addresses: HttpTypes.StoreCustomerAddress[]
+}) => {
   const [successState, setSuccessState] = useState(false)
   const { state, open, close: closeModal } = useToggleState(false)
 
-  const [formState, formAction] = useFormState(addCustomerShippingAddress, {
+  const [formState, formAction] = useActionState(addCustomerAddress, {
+    isDefaultShipping: addresses.length === 0,
     success: false,
     error: null,
   })
@@ -122,10 +128,18 @@ const AddAddress = ({ region }: { region: Region }) => {
                 autoComplete="country"
                 data-testid="country-select"
               />
-              <Input label="Phone" name="phone" autoComplete="phone" data-testid="phone-input" />
+              <Input
+                label="Phone"
+                name="phone"
+                autoComplete="phone"
+                data-testid="phone-input"
+              />
             </div>
             {formState.error && (
-              <div className="text-rose-500 text-small-regular py-2" data-testid="address-error">
+              <div
+                className="text-rose-500 text-small-regular py-2"
+                data-testid="address-error"
+              >
                 {formState.error}
               </div>
             )}
