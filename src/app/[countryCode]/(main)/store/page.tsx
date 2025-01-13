@@ -24,10 +24,13 @@ export default async function StorePage(props: Params) {
   const { sortBy, page } = searchParams
 
   return (
-    <StoreTemplate
-      sortBy={sortBy}
-      page={page}
-      countryCode={params.countryCode}
-    />
+    <>
+      <div className="h-16"></div>
+      <StoreTemplate
+        sortBy={sortBy}
+        page={page}
+        countryCode={params.countryCode}
+      />
+    </>
   )
 }

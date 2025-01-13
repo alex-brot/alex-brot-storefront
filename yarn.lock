@@ -4259,6 +4259,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bezier-easing@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "bezier-easing@npm:2.1.0"
+  checksum: ec22666b5385979b3e7a63eaf2631395b1be5beb3aed4f14cc70ae9eb09032082584f7e3eec045e4c122466987ed7e159f5b39f82b8a9870cd55e75b0d55a7d5
+  languageName: node
+  linkType: hard
+
 "big.js@npm:^5.2.2":
   version: 5.2.2
   resolution: "big.js@npm:5.2.2"
@@ -6425,6 +6432,7 @@ __metadata:
     react: 19.0.0-rc-66855b96-20241106
     react-country-flag: ^3.1.0
     react-dom: 19.0.0-rc-66855b96-20241106
+    react-scroll-parallax: ^3.4.5
     server-only: ^0.0.1
     tailwindcss: ^3.0.23
     tailwindcss-radix: ^2.8.0
@@ -6905,6 +6913,15 @@ __metadata:
   version: 1.0.1
   resolution: "package-json-from-dist@npm:1.0.1"
   checksum: 58ee9538f2f762988433da00e26acc788036914d57c71c246bf0be1b60cdbd77dd60b6a3e1a30465f0b248aeb80079e0b34cb6050b1dfa18c06953bb1cbc7602
+  languageName: node
+  linkType: hard
+
+"parallax-controller@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "parallax-controller@npm:1.7.1"
+  dependencies:
+    bezier-easing: ^2.1.0
+  checksum: 3079bda3cf24ec368735b6cdcc6bae9a828b81d68a69907c1fae1744ae7d89f678f7b015d7a87d36dbfb02a050f5d0968eb47c2ce0d67c7193da720a0527abce
   languageName: node
   linkType: hard
 
@@ -7474,6 +7491,18 @@ __metadata:
     "@types/react":
       optional: true
   checksum: e0dbb6856beaed2cff4996d9ca62d775686ff72e3e9de34043034d932223b588993b2fc7a18644750dd3d73eb19bd3f2cedb8d91f0e424c1ef8403010da24b1d
+  languageName: node
+  linkType: hard
+
+"react-scroll-parallax@npm:^3.4.5":
+  version: 3.4.5
+  resolution: "react-scroll-parallax@npm:3.4.5"
+  dependencies:
+    parallax-controller: ^1.7.1
+  peerDependencies:
+    react: ^16.8.0-0 || >=17.0.1 || ^18.0.0
+    react-dom: ^16.8.0-0 || >=17.0.1 || ^18.0.0
+  checksum: 8a749430849566cae9bd7aa5536cd3e2ef2574b04a6d12c37dd53e095695d0858814f2d4b176307bca7f4e30eddcfea807fc4428c6302a1013c302c7f5a929cf
   languageName: node
   linkType: hard
 
