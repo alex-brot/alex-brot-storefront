@@ -4,6 +4,8 @@
 .idea
 .vscode
 
+.env.development
+
 # dependencies
 /node_modules
 /.pnp
