@@ -10,11 +10,11 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-l
 
 FROM base AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN --mount=type=secret,id=medusa_backend,target=/run/secrets/MEDUSA_BACKEND \
-    --mount=type=secret,id=medusa_api_key,target=/run/secrets/MEDUSA_PUBLISHABLE_API_KEY \
-    MEDUSA_BACKEND=$(cat /run/secrets/MEDUSA_BACKEND) \
-    MEDUSA_PUBLISHABLE_API_KEY=$(cat /run/secrets/MEDUSA_PUBLISHABLE_API_KEY) \
-    pnpm run build
+RUN --mount=type=secret,id=medusa_backend,env=MEDUSA_BACKEND
+RUN --mount=type=secret,id=medusa_api_key,env=MEDUSA_PUBLISHABLE_API_KEY
+RUN echo $MEDUSA_BACKEND
+RUN echo $MEDUSA_PUBLISHABLE_API_KEY
+RUN pnpm run build
 
 FROM base
 COPY --from=prod-deps /app/node_modules /app/node_modules
