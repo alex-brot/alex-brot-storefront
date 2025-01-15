@@ -1,29 +1,20 @@
-FROM node:18-alpine as base
-RUN apk add --no-cache g++ make py3-pip libc6-compat
+FROM node:20-slim AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+COPY . /app
 WORKDIR /app
-COPY package*.json ./
-EXPOSE 8000
 
-FROM base as builder
-WORKDIR /app
-COPY . .
-RUN yarn install
-RUN yarn run build
+FROM base AS prod-deps
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
+FROM base AS build
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run build
 
 FROM base
-WORKDIR /app
-
-ENV NODE_ENV=production
-
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-USER nextjs
-
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/public ./public
-
-CMD npm start
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/.next /app/.next
+COPY --from=build /app/public /app/public
+EXPOSE 8000
+CMD [ "pnpm", "start" ]
