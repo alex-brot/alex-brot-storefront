@@ -13,10 +13,10 @@ dependencies:
     specifier: ^2.2.0
     version: 2.2.0(react-dom@19.0.0-rc-66855b96-20241106)(react@19.0.0-rc-66855b96-20241106)
   '@medusajs/js-sdk':
-    specifier: latest
+    specifier: ^2.2.0
     version: 2.2.0(awilix@8.0.1)
   '@medusajs/ui':
-    specifier: latest
+    specifier: ^4.0.3
     version: 4.0.3(react-dom@19.0.0-rc-66855b96-20241106)(react@19.0.0-rc-66855b96-20241106)(types-react-dom@19.0.0-rc.1)(types-react@19.0.0-rc.1)(typescript@5.7.3)
   '@radix-ui/react-accordion':
     specifier: ^1.2.1
