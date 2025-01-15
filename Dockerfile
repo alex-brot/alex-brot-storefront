@@ -9,17 +9,17 @@ FROM base AS prod-deps
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
 FROM base AS build
-ENV NEXT_PUBLIC_DEFAULT_REGION="at"
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
-    --mount=type=secret,id=medusa_backend \
-    --mount=type=secret,id=medusa_api_key \
-    sh -c ' \
-    MEDUSA_BACKEND_URL=$(cat /run/secrets/medusa_backend) && \
-    NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=$(cat /run/secrets/medusa_api_key) && \
-    MEDUSA_BACKEND_URL=$MEDUSA_BACKEND_URL \
-    NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=$NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY \
-    pnpm install --frozen-lockfile && \
-    pnpm run build'
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store
+
+ARG MEDUSA_BACKEND_URL
+ARG NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
+
+ENV MEDUSA_BACKEND_URL=$MEDUSA_BACKEND_URL
+ENV NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=$NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
+
+RUN pnpm install --frozen-lockfile
+RUN pnpm run build
+
 
 FROM base
 COPY --from=prod-deps /app/node_modules /app/node_modules
