@@ -41,7 +41,9 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
             ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:latest
-
+          secrets: |
+            "medusa_backend=https://dev.medusa.alex-brot.stenz.dev"
+            "medusa_api_key=${{ secrets.DEV_MEDUSA_PUBLISHABLE_KEY }}"
 
   bump-deployment-image:
     needs: build-and-push
