@@ -42,8 +42,8 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
             ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:latest
           build-args: |
-            MEDUSA_BACKEND_URL="https://dev.medusa.alex-brot.stenz.dev"
-            NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=${{ secrets.DEV_MEDUSA_PUBLISHABLE_KEY }}
+            MEDUSA_BACKEND="https://dev.medusa.alex-brot.stenz.dev"
+            MEDUSA_PUBLISHABLE_KEY=${{ secrets.DEV_MEDUSA_PUBLISHABLE_KEY }}
 
   bump-deployment-image:
     needs: build-and-push
