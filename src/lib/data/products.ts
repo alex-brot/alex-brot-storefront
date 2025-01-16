@@ -134,3 +134,27 @@ export const listProductsWithSort = async ({
     queryParams,
   }
 }
+
+export type WeeklyOffer = {
+  id: string
+  title: string
+  from: string
+  to: string
+  products: HttpTypes.StoreProduct[]
+}
+
+export const getWeeklyOffer = async ({}): Promise<{
+  response: {
+    weeklyoffers: WeeklyOffer[]
+  }
+}> => {
+  const weeklyoffers = await sdk.client.fetch<WeeklyOffer[]>(
+    `/store/weekly-offers`
+  )
+
+  return {
+    response: {
+      weeklyoffers,
+    },
+  }
+}
