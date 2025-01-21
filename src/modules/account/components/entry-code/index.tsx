@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Input } from "@medusajs/ui"
+import { Button, Input, Tooltip } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import React, { useState } from "react"
 
@@ -33,19 +33,23 @@ const EntryCode = ({code}: {code: string}) => {
   }
 
   return (
-    <>
-      <h2>Your code is:</h2>
-      <div className="flex items-center gap-x-2">
-        <Input
-          className="align-middle"
-          value={isRevealed ? code : "****"}
-          disabled
-        />
-        <Button onClick={toggleReveal}>
-          {isRevealed ? "Hide" : "Reveal"} Code
-        </Button>
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center gap-y-8">
+      <h1 className="text-2xl font-bold mb-8">Your code is:</h1>
+      <Tooltip content="Click to reveal the code">
+        <div className="flex items-center gap-x-2 w-52" onClick={toggleReveal}>
+          {code.split("").map((_, index) => {
+            return (
+              <div
+                id={index.toString()}
+                className="flex items-center justify-center gap-x-2 w-11 bg-neutral-200 h-20 border-2 border-neutral-400 rounded-md"
+              >
+                <h1 className="text-4xl">{isRevealed ? code[index] : "*"}</h1>
+              </div>
+            )
+          })}
+        </div>
+      </Tooltip>
+    </div>
   )
 };
 

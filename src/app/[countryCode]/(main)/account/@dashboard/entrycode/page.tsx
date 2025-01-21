@@ -1,4 +1,5 @@
 import { listOrders } from '@lib/data/orders'
+import { getCodes } from '@lib/data/pos-auth'
 import { Button } from '@medusajs/ui'
 import EntryCode from '@modules/account/components/entry-code'
 import LocalizedClientLink from '@modules/common/components/localized-client-link'
@@ -13,9 +14,13 @@ export default async function EntryCodePage() {
     notFound()
   }
 
+  let {
+    response: { posAuth },
+  } = await getCodes({})
+  
   return (
     <div>
-      <EntryCode code={"1234"} />
+      <EntryCode code={posAuth.code} />
     </div>
   )
 }
