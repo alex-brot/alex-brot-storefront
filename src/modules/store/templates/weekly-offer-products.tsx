@@ -2,7 +2,7 @@ import { getWeeklyOffer } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import ProductPreview from "@modules/products/components/product-preview"
 
-export default async function WeeklyOfferProducs({
+export default async function WeeklyOfferProducts({
   countryCode,
 }: {
   countryCode: string
