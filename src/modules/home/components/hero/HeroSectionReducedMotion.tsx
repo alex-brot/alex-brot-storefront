@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { HeroSectionCTA } from "@modules/home/components/hero/HeroSection"
 
 function HeroSectionReducedMotion({
   src,
@@ -19,9 +20,15 @@ function HeroSectionReducedMotion({
             objectFit="cover"
           />
         </div>
-        <div className="bg-black bg-opacity-40 w-full  h-full absolute top-0 flex items-center">
-          <div className="container mt-16">
-            <h1 className="text-primary-light text-7xl">{text}</h1>
+        <div className="bg-black bg-opacity-40 w-full h-full flex items-center absolute top-1/2 -translate-y-1/2">
+          <div className="container w-5/6">
+            <h1 className="text-primary-light md:text-8xl text-7xl md:w-1/2 font-bold">
+              {text}
+            </h1>
+
+            <div className="mt-8">
+              <HeroSectionCTA />
+            </div>
           </div>
         </div>
       </div>

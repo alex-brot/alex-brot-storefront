@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { ParallaxBanner } from "react-scroll-parallax"
+import { HeroSectionCTA } from "@modules/home/components/hero/HeroSection"
 
 function HeroSectionParallax({
   fileType = "image",
@@ -48,11 +49,15 @@ function HeroSectionParallax({
           {
             speed: -25,
             children: (
-              <div className="bg-black bg-opacity-40 w-full  h-full flex items-center absolute top-1/2 -translate-y-1/2">
-                <div className="container ">
+              <div className="bg-black bg-opacity-40 w-full h-full flex items-center absolute top-1/2 -translate-y-1/2">
+                <div className="container w-5/6">
                   <h1 className="text-primary-light md:text-8xl text-7xl md:w-1/2 font-bold">
                     {text}
                   </h1>
+
+                  <div className="mt-8">
+                    <HeroSectionCTA />
+                  </div>
                 </div>
               </div>
             ),

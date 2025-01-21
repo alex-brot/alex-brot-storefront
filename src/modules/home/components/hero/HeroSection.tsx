@@ -40,4 +40,10 @@ function HeroSection({
   )
 }
 
+export function HeroSectionCTA() {
+  return <div className="bg-primary-light rounded-lg w-fit h-fit hover:-translate-y-0.5 hover:bg-amber-100 duration-150">
+    <button className="py-1.5 px-4 text-xl drop-shadow-md text-black font-bold">Jetzt bestellen</button>
+  </div>
+}
+
 export default HeroSection

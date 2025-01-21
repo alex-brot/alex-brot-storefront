@@ -21,6 +21,10 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        productCard: {
+          primary: '#E9EDC9',
+          secondary: '#CCD5AE',
+        },
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
@@ -39,6 +43,7 @@ module.exports = {
         white: "#ffffff",
         black: "#000000",
         "primary-light": "#FAEDCD",
+        "primary-middle": "#d5ac86",
         "primary-full": "#D4A373",
         "primary-lightest": "#FEFAE0",
         "secondary-full": "#CCD5AE",
