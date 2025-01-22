@@ -53,6 +53,11 @@ function HeroSectionParallax({
                   <h1 className="text-primary-light md:text-8xl text-7xl md:w-1/2 font-bold">
                     {text}
                   </h1>
+                  <div className="mt-12 ">
+                    <button className="bg-primary-lightest backdrop-blur-lg px-4 py-2 text-black font-semibold rounded-lg hover:-translate-y-0.5 hover:bg-primary-light duration-150 text-2xl">
+                      Jetzt bestellen
+                    </button>
+                  </div>
                 </div>
               </div>
             ),

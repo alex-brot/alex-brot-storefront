@@ -21,7 +21,7 @@ export default async function WeeklyOfferProducts({
   if (weeklyoffers.length === 0) {
     return (
       <>
-        <div className="mb-8 text-2xl-semi">
+        <div className="mb-3 mt-4 text-2xl-semi">
           <h1 data-testid="store-page-title">
             There is no weekly offer available at the moment
           </h1>
@@ -32,9 +32,12 @@ export default async function WeeklyOfferProducts({
 
   return (
     <>
-      <div className="mb-8 text-2xl-semi">
-        <h1 data-testid="store-page-title">
-          Weekly Offer {weeklyoffers[0].title}
+      <div className="mb-5 flex justify-between mt-10 font-semibold ">
+        <h1 data-testid="store-page-title" className="text-5xl">
+          Weekly Offer.
+        </h1>
+        <h1 className="text-4xl text-grey-30 underline ">
+          {weeklyoffers[0].title.toUpperCase()}
         </h1>
       </div>
       <ul
@@ -43,7 +46,7 @@ export default async function WeeklyOfferProducts({
       >
         {weeklyoffers[0].products.map((p) => {
           return (
-            <li key={p.id}>
+            <li key={p.id} className="animate-in fade-in zoom-in duration-500">
               <ProductPreview product={p} region={region} />
             </li>
           )

@@ -1,4 +1,4 @@
-const path = require("path")
+
 
 module.exports = {
   darkMode: "class",
@@ -184,5 +184,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-radix")()],
+  plugins: [require("tailwindcss-radix")(), require("tailwindcss-animate"),],
 }
