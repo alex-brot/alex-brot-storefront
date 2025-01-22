@@ -8,19 +8,16 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 export default async function EntryCodePage() {
-  const orders = await listOrders()
-
-  if (!orders) {
-    notFound()
-  }
-
   let {
     response: { posAuth },
   } = await getCodes({})
   
+  console.log(posAuth)
+
+
   return (
     <div>
-      <EntryCode code={posAuth.code} />
+      <EntryCode posAuth={posAuth} />
     </div>
   )
 }
