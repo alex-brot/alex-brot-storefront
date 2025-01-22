@@ -28,7 +28,7 @@ export default async function ProductPreview({
 
   return (
     <LocalizedClientLink href={`/products/${product.handle}`} className="group ">
-      <div data-testid="product-wrapper" className="relative hover:hover:shadow-[0px_2px_20px_rgba(0,0,0,0.2)] transition-shadow duration-300 rounded-lg m-2">
+      <div data-testid="product-wrapper" className="relative hover:shadow-customProductShadow transition-shadow duration-300 rounded-lg m-2">
         <div className="relative ">
           <div className="w-full flex justify-end absolute z-10">
             <div className="flex justify-end px-3 py-1.5 text-black bg-secondary-light rounded-tr-lg rounded-bl-lg w-fit gap-x-2">

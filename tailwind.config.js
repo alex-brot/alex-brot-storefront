@@ -182,6 +182,9 @@ module.exports = {
         "slide-in": "slide-in 1.2s cubic-bezier(.41,.73,.51,1.02)",
         leave: "leave 150ms ease-in forwards",
       },
+      boxShadow: {
+        'customProductShadow': '0px 2px 20px rgba(0, 0, 0, 0.2)',
+      }
     },
   },
   plugins: [require("tailwindcss-radix")(), require("tailwindcss-animate"),],
