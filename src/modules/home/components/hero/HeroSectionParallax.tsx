@@ -1,5 +1,7 @@
 import Image from "next/image"
 import { ParallaxBanner } from "react-scroll-parallax"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { Button } from "@medusajs/ui"
 
 function HeroSectionParallax({
   fileType = "image",
@@ -54,9 +56,11 @@ function HeroSectionParallax({
                     {text}
                   </h1>
                   <div className="mt-12 ">
-                    <button className="bg-primary-lightest backdrop-blur-lg px-4 py-2 text-black font-semibold rounded-lg hover:-translate-y-0.5 hover:bg-primary-light duration-150 text-2xl">
-                      Jetzt bestellen
-                    </button>
+                    <LocalizedClientLink href="/store" className="">
+                      <Button className="bg-primary-lightest backdrop-blur-lg px-6 py-2 text-black font-semibold rounded-lg hover:-translate-y-0.5 hover:bg-primary-light duration-150 text-2xl">
+                        Jetzt bestellen
+                      </Button>
+                    </LocalizedClientLink>
                   </div>
                 </div>
               </div>

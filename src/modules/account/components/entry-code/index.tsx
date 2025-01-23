@@ -15,14 +15,14 @@ const EntryCode = ({ posAuth }: { posAuth: PosAuthCodesDTO | undefined }) => {
   if (!posAuth || posAuth.code.length === 0) {
     return (
       <div>
-        <h1 className="text-2xl-semi">EntryCodes</h1>
+        <h1 className="text-2xl-semi mb-12">Entry Codes</h1>
         <div
-          className="w-full flex flex-col items-center gap-y-"
+          className="w-full flex flex-col items-center"
           data-testid="no-orders-container"
         >
-          <h2 className="text-large-semi">Nothing to see here</h2>
+          <h2 className="text-lg font-semibold">Nothing to see here</h2>
           <p className="text-base-regular">
-            You don&apos;t have a code yet, let us change that {":)"}
+            Don&apos;t have a code yet? Let us <strong>change that!</strong>
           </p>
           <div className="mt-4">
             <LocalizedClientLink href="/" passHref>
@@ -38,12 +38,12 @@ const EntryCode = ({ posAuth }: { posAuth: PosAuthCodesDTO | undefined }) => {
 
   return (
     <div>
-      <h1 className="text-2xl-semi">Entry Codes</h1>
-      <div className="flex flex-col items-center justify-center gap-y-8">
-        <h1 className="text-2xl font-bold mb-8">Your code is:</h1>
+      <h1 className="mb-10 text-2xl-semi">Entry Codes</h1>
+      <div className="mt-4 flex flex-col items-center justify-center gap-y-1">
+        <h1 className="text-2xl font-bold mb-8">Your Personal Code</h1>
         <Tooltip content="Click to reveal the code">
           <div
-            className="flex items-center gap-x-2 w-52"
+            className="flex items-center gap-x-2 w-52 cursor-pointer"
             onClick={toggleReveal}
           >
             {posAuth.code.split("").map((_, index) => {
