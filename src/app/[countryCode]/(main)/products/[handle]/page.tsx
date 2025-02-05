@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 import { listProducts } from "@lib/data/products"
 import { getRegion, listRegions } from "@lib/data/regions"
 import ProductTemplate from "@modules/products/templates"
-import { retrieveCustomer } from "@lib/data/customer"
 
 type Props = {
   params: Promise<{ countryCode: string; handle: string }>
@@ -20,7 +19,7 @@ export async function generateStaticParams() {
     }
 
     const products = await listProducts({
-      countryCode: "US",
+      countryCode: "AT",
       queryParams: { fields: "handle" },
     }).then(({ response }) => response.products)
 
@@ -75,7 +74,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function ProductPage(props: Props) {
   const params = await props.params
   const region = await getRegion(params.countryCode)
-  const customer = await retrieveCustomer()
 
   if (!region) {
     notFound()
@@ -95,7 +93,6 @@ export default async function ProductPage(props: Props) {
       product={pricedProduct}
       region={region}
       countryCode={params.countryCode}
-      customer={customer}
     />
   )
 }

@@ -7,6 +7,54 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import { getAuthHeaders, getCacheOptions } from "./cookies"
 import { getRegion, retrieveRegion } from "./regions"
 
+export const findProductById = async ({
+  id,
+  queryParams,
+  countryCode,
+  regionId,
+}: {
+  id: string
+  queryParams?: HttpTypes.FindParams &
+    HttpTypes.StoreProductParams
+  countryCode?: string
+  regionId?: string
+}): Promise<HttpTypes.StoreProduct | null> => {
+  if (!countryCode && !regionId) {
+    throw new Error("Country code or region ID is required")
+  }
+
+  let region: HttpTypes.StoreRegion | undefined | null
+
+  if (countryCode) {
+    region = await getRegion(countryCode)
+  } else {
+    region = await retrieveRegion(regionId!)
+  }
+
+  if (!region || !id) {
+    return null
+  }
+
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.client
+    .fetch<{ product: HttpTypes.StoreProduct }>(`/store/products/${id}`, {
+      method: "GET",
+      query: {
+        region_id: region?.id,
+        fields:
+          "*variants.calculated_price,+variants.inventory_quantity,+metadata,+tags",
+        ...queryParams,
+      },
+      headers,
+    })
+    .then(({ product }) => {
+      return product
+    })
+}
+
 export const listProducts = async ({
   pageParam = 1,
   queryParams,
@@ -14,7 +62,7 @@ export const listProducts = async ({
   regionId,
 }: {
   pageParam?: number
-  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams
+  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams & { handle?: string }
   countryCode?: string
   regionId?: string
 }): Promise<{
