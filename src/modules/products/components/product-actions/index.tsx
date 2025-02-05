@@ -2,7 +2,7 @@
 
 import { addToCart } from "@lib/data/cart"
 import { useIntersection } from "@lib/hooks/use-in-view"
-import { HttpTypes } from "@medusajs/types"
+import { HttpTypes, StoreCustomer } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
 import Divider from "@modules/common/components/divider"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
@@ -16,6 +16,7 @@ type ProductActionsProps = {
   product: HttpTypes.StoreProduct
   region: HttpTypes.StoreRegion
   disabled?: boolean
+  customer?: StoreCustomer
 }
 
 const optionsAsKeymap = (
@@ -30,6 +31,7 @@ const optionsAsKeymap = (
 export default function ProductActions({
   product,
   disabled,
+  customer
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
   const [isAdding, setIsAdding] = useState(false)
@@ -102,6 +104,9 @@ export default function ProductActions({
   // add the selected variant to the cart
   const handleAddToCart = async () => {
     if (!selectedVariant?.id) return null
+    if (!customer) {
+      return null
+    }
 
     setIsAdding(true)
 
@@ -203,7 +208,8 @@ export default function ProductActions({
             !selectedVariant ||
             !!disabled ||
             isAdding ||
-            !isValidVariant
+            !isValidVariant ||
+            !customer
           }
           variant="primary"
           className="w-full text-lg h-10 py-0.5 gap-x-2 bg-primary-lightest text-black hover:bg-primary-light duration-150"
@@ -213,14 +219,24 @@ export default function ProductActions({
           {!selectedVariant && !options
             ? "Select variant"
             : !inStock || !isValidVariant
-              ? "Out of stock"
-              : "Add to cart"}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-               stroke="currentColor" className="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+            ? "Out of stock"
+            : !customer
+            ? "Sign in to buy"
+            : "Add to cart"}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            className="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+            />
           </svg>
-
         </Button>
         <MobileActions
           product={product}

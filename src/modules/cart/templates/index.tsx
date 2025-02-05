@@ -4,6 +4,7 @@ import EmptyCartMessage from "../components/empty-cart-message"
 import SignInPrompt from "../components/sign-in-prompt"
 import Divider from "@modules/common/components/divider"
 import { HttpTypes } from "@medusajs/types"
+import {  Heading } from "@medusajs/ui"
 
 const CartTemplate = ({
   cart,
@@ -12,6 +13,18 @@ const CartTemplate = ({
   cart: HttpTypes.StoreCart | null
   customer: HttpTypes.StoreCustomer | null
 }) => {
+  if (!customer) {
+    return (
+      <div className="flex justify-center h-[50vh] items-center mt-20">
+        <div className="w-1/2">
+          <Heading className="text-[2rem] leading-[2.75rem]">Cart</Heading>
+          <SignInPrompt />
+          <Divider />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       <div className="h-16"></div>
