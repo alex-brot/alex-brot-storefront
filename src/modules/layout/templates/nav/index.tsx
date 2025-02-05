@@ -11,7 +11,7 @@ export default async function Nav() {
 
   return (
     <div className="fixed top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto duration-200 bg-black bg-opacity-50 border-ui-border-base">
+      <header className="relative h-16 mx-auto duration-200 backdrop-blur-md bg-black bg-opacity-50 border-ui-border-base">
         <nav className="content-container txt-xsmall-plus text-white flex items-center justify-between w-full h-full text-small-regular">
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full">

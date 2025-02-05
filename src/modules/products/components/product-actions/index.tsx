@@ -34,7 +34,7 @@ export default function ProductActions({
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
   const [isAdding, setIsAdding] = useState(false)
   const countryCode = useParams().countryCode as string
-  const [amountOfItem, setAmountOfItem] = useState(0) // Zustand für die Anzahl
+  const [amountOfItem, setAmountOfItem] = useState(1) // Zustand für die Anzahl
 
   // If there is only 1 variant, preselect the options
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function ProductActions({
   }
 
   const decreaseAmount = () => {
-    setAmountOfItem((prev) => (prev > 0 ? prev - 1 : 0))
+    setAmountOfItem((prev) => (prev > 1 ? prev - 1 : 1))
   }
 
   const increaseAmount = () => {
@@ -153,7 +153,7 @@ export default function ProductActions({
           </div>
 
           <div className="w-fit text-center">
-            <h1 className="mb-0.5 text-xl font-semibold">Amount</h1>
+            <h1 className="mb-0.5 text-xl font-semibold">Quantity</h1>
             <div className="h-fit flex items-center">
               <div className="w-24 h-full flex justify-between items-center">
                 <button onClick={decreaseAmount}>

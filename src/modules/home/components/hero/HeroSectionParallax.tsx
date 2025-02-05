@@ -57,7 +57,7 @@ function HeroSectionParallax({
                   </h1>
                   <div className="mt-12 ">
                     <LocalizedClientLink href="/store" className="">
-                      <Button className="bg-primary-lightest backdrop-blur-lg px-6 py-2 text-black font-semibold rounded-lg hover:-translate-y-0.5 hover:bg-primary-light duration-150 text-2xl">
+                      <Button className="bg-primary-lightest backdrop-blur-lg px-6 py-2 text-black font-semibold rounded-lg hover:bg-primary-light duration-150 text-2xl">
                         Jetzt bestellen
                       </Button>
                     </LocalizedClientLink>
