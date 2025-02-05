@@ -1,10 +1,9 @@
 name: build-and-deploy-prod
 on:
-  push:
-    branches:
-      - main
-  pull_request:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
 
 env:
   GITHUB_USER: ${{ github.repository_owner }}
@@ -31,6 +30,10 @@ jobs:
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
 
+      - name: Extract Tag
+        id: extract_tag
+        run: echo "TAG=${{ github.ref }}" | sed 's/refs\/tags\///g' >> $GITHUB_ENV
+
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
@@ -39,7 +42,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64/v8
           tags: |
-            ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:${{ github.run_id }}
+            ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
             ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:latest
 
 
@@ -52,6 +55,10 @@ jobs:
         with:
           repository: alex-brot/deployments
 
+      - name: Extract Tag
+        id: extract_tag
+        run: echo "TAG=${{ github.ref }}" | sed 's/refs\/tags\///g' >> $GITHUB_ENV
+
       - name: Modify file
         run: |
           sed -i 's|\(image: ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:\).*|\1${{ github.run_id }}|' ./alex-brot/overlays/prod/kustomization.yaml
@@ -61,18 +68,18 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add ./alex-brot/overlays/prod/kustomization.yaml
-          git commit -m "Automated image version bump to ${{ github.run_id }}"
+          git commit -m "Automated image version bump to ${{ env.TAG }}"
           git config --unset-all http.https://github.com/.extraheader
-          git push https://${{ secrets.K3S_REPO_PAT }}@github.com/alex-brot/deployments.git HEAD:auto-bump-prod-image-${{ github.run_id }}
+          git push https://${{ secrets.K3S_REPO_PAT }}@github.com/alex-brot/deployments.git HEAD:auto-bump-${{ env.IMAGE_NAME }}:${{ env.TAG }}-${{ github.run_number }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.K3S_REPO_PAT }}
           repository: ${{ env.DEPLOYMENTS_REPOSITORY }}
-          head: auto-bump-prod-image-${{ github.run_id }}
-          branch: auto-bump-prod-image-${{ github.run_id }}
+          head: auto-bump-prod-image-${{ github.run_number }}
+          branch: auto-bump-${{ env.IMAGE_NAME }}:${{ env.TAG }}-${{ github.run_number }}
           base: main
           delete-branch: true
-          title: "[${{github.repository}}] Automated image version bump to ${{ github.run_id }}"
-          body: "This PR was automatically created by the CI pipeline in the https://github.com/${{ github.repository }} repository to bump the image version of the ${{ github.repository }} service to ${{ github.run_id }}."
+          title: "[${{github.action_repository}}] Automated image version bump to ${{ env.TAG }}"
+          body: "This PR was automatically created by the CI pipeline in the https://github.com/${{ github.repository_owner }}/${{ github.action_repository }} repository to bump the image version of the ${{ github.action_repository }} service to ${{ env.TAG }}."
