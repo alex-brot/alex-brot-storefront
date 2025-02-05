@@ -23,7 +23,7 @@ export default async function WeeklyOfferProducts({
       <>
         <div className="mb-3 mt-4 text-2xl-semi">
           <h1 data-testid="store-page-title">
-            There is no weekly offer available at the moment
+            There is no weekly offer available at the moment.
           </h1>
         </div>
       </>
@@ -36,7 +36,7 @@ export default async function WeeklyOfferProducts({
         <h1 data-testid="store-page-title" className="text-5xl">
           Weekly Offer.
         </h1>
-        <h1 className="text-4xl text-grey-30 underline ">
+        <h1 className="text-4xl text-grey-30 underline">
           {weeklyoffers[0].title.toUpperCase()}
         </h1>
       </div>
