@@ -112,7 +112,7 @@ export default function ProductActions({
 
     await addToCart({
       variantId: selectedVariant.id,
-      quantity: 1,
+      quantity: amountOfItem,
       countryCode,
     })
 
