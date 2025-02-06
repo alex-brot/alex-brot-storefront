@@ -1,8 +1,6 @@
-import { listProducts } from "@lib/data/products"
+import { getWeeklyOffer } from "@lib/data/products"
 import { HttpTypes } from "@medusajs/types"
-import { Text } from "@medusajs/ui"
 
-import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
 
 export default async function ProductRail({
@@ -12,36 +10,40 @@ export default async function ProductRail({
   collection: HttpTypes.StoreCollection
   region: HttpTypes.StoreRegion
 }) {
-  const {
-    response: { products: pricedProducts },
-  } = await listProducts({
-    regionId: region.id,
-    queryParams: {
-      collection_id: collection.id,
-      fields: "*variants.calculated_price",
-    },
-  })
+  if (!region) {
+    return null
+  }
 
-  if (!pricedProducts) {
+  let {
+    response: { weeklyoffers },
+  } = await getWeeklyOffer({})
+
+  if(weeklyoffers.length === 0) {
     return null
   }
 
   return (
-    <div className="content-container py-12 small:py-24">
-      <div className="flex justify-between mb-8">
-        <Text className="txt-xlarge">{collection.title}</Text>
-        <InteractiveLink href={`/collections/${collection.handle}`}>
-          Alle Produkte
-        </InteractiveLink>
+    <>
+      <div className="mb-5 flex px-6 justify-between mt-10 font-semibold ">
+        <h1 data-testid="store-page-title" className="text-5xl">
+          Weekly Offer.
+        </h1>
+        <h1 className="text-4xl text-grey-30 underline">
+          {weeklyoffers[0].title.toUpperCase()}
+        </h1>
       </div>
-      <ul className="grid grid-cols-2 small:grid-cols-3 gap-x-6 gap-y-24 small:gap-y-36">
-        {pricedProducts &&
-          pricedProducts.map((product) => (
-            <li key={product.id}>
-              <ProductPreview product={product} region={region} isFeatured />
+      <ul
+        className="grid grid-cols-2 w-full small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8"
+        data-testid="products-list"
+      >
+        {weeklyoffers[0].products.map((p) => {
+          return (
+            <li key={p.id} className="animate-in fade-in zoom-in duration-500">
+              <ProductPreview product={p} region={region} />
             </li>
-          ))}
+          )
+        })}
       </ul>
-    </div>
+    </>
   )
 }

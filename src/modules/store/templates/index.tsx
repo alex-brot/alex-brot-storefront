@@ -1,10 +1,5 @@
 import { Suspense } from "react"
-
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
-import RefinementList from "@modules/store/components/refinement-list"
-import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-
-import PaginatedProducts from "./paginated-products"
 import WeeklyOfferProducs from "./weekly-offer-products"
 
 const StoreTemplate = ({
@@ -30,9 +25,7 @@ const StoreTemplate = ({
           <h1 data-testid="store-page-title">Weekly Offer</h1>
         </div> */}
         <Suspense fallback={<SkeletonProductGrid />}>
-          <WeeklyOfferProducs
-            countryCode={countryCode}
-          />
+          <WeeklyOfferProducs countryCode={countryCode} />
         </Suspense>
       </div>
     </div>
