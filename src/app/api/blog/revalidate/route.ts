@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
   try {
     console.log("Revalidating /blog")
-    revalidatePath("/blog", "page")
+    revalidatePath("/[countryCode]/blog", "page")
     return new NextResponse(JSON.stringify({ success: true }), {
       status: 200,
     })
