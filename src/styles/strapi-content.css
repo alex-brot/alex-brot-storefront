@@ -1,0 +1,160 @@
+/* Basis-Stile für den gesamten Inhalt */
+.strapi-content {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  padding: 1em;
+}
+
+/* Überschriften */
+.strapi-content h1,
+.strapi-content h2,
+.strapi-content h3,
+.strapi-content h4,
+.strapi-content h5,
+.strapi-content h6 {
+  margin: 1.5em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.strapi-content h1 { font-size: 2.5em; }
+.strapi-content h2 { font-size: 2em; }
+.strapi-content h3 { font-size: 1.75em; }
+.strapi-content h4 { font-size: 1.5em; }
+.strapi-content h5 { font-size: 1.25em; }
+.strapi-content h6 { font-size: 1em; }
+
+/* Absätze */
+.strapi-content p {
+  margin-bottom: 1em;
+}
+
+/* Links */
+.strapi-content a {
+  color: #007BFF;
+  text-decoration: none;
+}
+.strapi-content a:hover,
+.strapi-content a:focus {
+  text-decoration: underline;
+}
+
+/* Listen */
+.strapi-content ul,
+.strapi-content ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+.strapi-content li {
+  margin-bottom: 0.5em;
+}
+.strapi-content ul:not(.todo-list) {
+  list-style-type: disc;
+}
+.strapi-content ol {
+  list-style-type: decimal;
+}
+
+/* Blockzitate */
+.strapi-content blockquote {
+  border-left: 4px solid #ddd;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  font-style: italic;
+}
+
+/* Horizontale Linie */
+.strapi-content hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 2em 0;
+}
+
+/* Bilder */
+.strapi-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Abbildungen und Bildunterschriften */
+.strapi-content figure {
+  margin: 1em 0;
+  text-align: center;
+}
+.strapi-content figcaption {
+  font-size: 0.9em;
+  color: #777;
+  margin-top: 0.5em;
+}
+
+/* Tabellen */
+.strapi-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+.strapi-content figure:has(table) {
+  
+}
+.strapi-content th,
+.strapi-content td {
+  border: 1px solid #ddd;
+  padding: 0.5em;
+  text-align: left;
+}
+.strapi-content th {
+  background-color: #f4f4f4;
+}
+
+/* Code-Inline */
+.strapi-content code {
+  background: #f4f4f4;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+/* Code-Blöcke */
+.strapi-content pre {
+  background: #f4f4f4;
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
+
+/* Formular-Elemente */
+.strapi-content input,
+.strapi-content textarea,
+.strapi-content select,
+.strapi-content button {
+  font-family: inherit;
+  font-size: 1em;
+  margin: 0;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+/* Zusätzliche Elemente (z.B. Listen innerhalb von Listen) */
+.strapi-content dl {
+  margin: 1em 0;
+}
+.strapi-content dt {
+  font-weight: bold;
+  margin-top: 1em;
+}
+.strapi-content dd {
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+}
+
+.strapi-content .image-style-side {
+  float: right;
+  margin: 0 0 1em 1em;
+}
