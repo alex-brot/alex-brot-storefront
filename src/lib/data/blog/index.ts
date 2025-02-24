@@ -3,7 +3,7 @@ export const fetchStrapi = async <T>(url: string): Promise<T> => {
     headers: {
       Authorization: `Bearer ${process.env.BLOG_API_TOKEN}`,
     },
-    
+    cache: "force-cache",
   })
   return (await res.json()) as T
 }
