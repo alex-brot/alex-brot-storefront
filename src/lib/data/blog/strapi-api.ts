@@ -7,12 +7,11 @@ import {
 import { fetchStrapi } from "."
 
 export const getPostsPreview = async (): Promise<PostPreview[]> => {
-  const temp = await fetchStrapi<BlogPostsResponse>(
+  const { data: blogposts } = await fetchStrapi<BlogPostsResponse>(
     "api/blog-posts?sort[0]=publishedAt_real:desc&sort[1]=publishedAt:desc&populate=featuredImage"
   )
-  console.log(temp)
 
-  return temp.data.map((post: BlogPost) => ({
+  return blogposts.map((post: BlogPost) => ({
     id: post.documentId,
     title: post.title,
     date: post.publishedAt_real ? post.publishedAt_real : post.publishedAt,
