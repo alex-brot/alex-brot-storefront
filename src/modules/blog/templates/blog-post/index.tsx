@@ -85,6 +85,15 @@ export default async function BlogPostTemplate({ post }: { post: BlogPost }) {
             </SyntaxHighlighter>
           )
         } else return domNode
+      } else if (domNode.name === "input") {
+        if (domNode.attribs.type === "checkbox") {
+          return (
+            <input
+              type="checkbox"
+              checked={domNode.attribs.checked === "checked"}
+            />
+          )
+        }
       }
     },
   }

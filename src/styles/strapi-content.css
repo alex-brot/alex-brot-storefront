@@ -172,3 +172,52 @@
   display: block;
   margin: 0 auto;
 }
+/* Remove default list styles */
+.strapi-content .todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style each checklist item */
+.strapi-content .todo-list li {
+  margin: 0.5rem 0;
+}
+
+/* Style the label that wraps the checkbox and description */
+.strapi-content .todo-list__label {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+
+/* Style the checkbox */
+.strapi-content .todo-list__label input[type="checkbox"] {
+  margin-right: 0.75rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  /* Optional: Use accent-color if supported */
+  accent-color: #62e130;
+}
+
+/* Style the description text */
+.strapi-content .todo-list__label__description {
+  font-size: 1rem;
+  color: #333;
+}
+.strapi-content .todo-list__label input[type="checkbox"]:disabled {
+  accent-color: #62e130;
+  /* Forces the color even when disabled */
+  opacity: 1;
+  /* Ensures full visibility */
+}
+
+/* When checkbox is checked, strike through text and adjust color */
+.strapi-content .todo-list__label input[type="checkbox"]:checked+.todo-list__label__description {
+  text-decoration: line-through;
+  color: #888;
+}
