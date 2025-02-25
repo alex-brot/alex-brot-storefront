@@ -158,3 +158,17 @@
   float: right;
   margin: 0 0 1em 1em;
 }
+
+.strapi-content .image-style-block-align-right {
+  display: block;
+  margin: 0 0 1em auto;
+}
+.strapi-content .image-style-block-align-left {
+  display: block;
+  margin: 0 auto 1em 0 !important;
+}
+
+.strapi-content .image_resized {
+  display: block;
+  margin: 0 auto;
+}
