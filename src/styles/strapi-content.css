@@ -209,11 +209,15 @@
   font-size: 1rem;
   color: #333;
 }
-.strapi-content .todo-list__label input[type="checkbox"]:disabled {
+.strapi-content .todo-list__label input[type="checkbox"] {
   accent-color: #62e130;
   /* Forces the color even when disabled */
   opacity: 1;
   /* Ensures full visibility */
+  cursor: not-allowed;
+  /* Change the cursor to indicate that the checkbox is disabled */
+  pointer-events: none;
+
 }
 
 /* When checkbox is checked, strike through text and adjust color */
