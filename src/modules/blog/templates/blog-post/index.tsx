@@ -3,6 +3,8 @@ import { BlogPost } from "types/blog"
 import parse from "html-react-parser"
 import Image from "next/image"
 import probe from "probe-image-size"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 function extractImageUrls(html: string): string[] {
   const imageUrls: string[] = []
@@ -72,10 +74,20 @@ export default async function BlogPostTemplate({ post }: { post: BlogPost }) {
             </div>
           )
         }
+      } else if (domNode.name === "pre") {
+        if (domNode.children[0].name === "code") {
+          const codeString = domNode.children[0].children[0].data
+          const language = domNode.children[0].attribs.class.split("-")[1]
+
+          return (
+            <SyntaxHighlighter language={language} style={tomorrow}>
+              {codeString}
+            </SyntaxHighlighter>
+          )
+        } else return domNode
       }
     },
   }
-
 
   return (
     <>
