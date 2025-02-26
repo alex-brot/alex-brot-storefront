@@ -225,3 +225,11 @@
   text-decoration: line-through;
   color: #888;
 }
+
+
+.strapi-content .raw-html-embed iframe {
+  margin: 0 auto;
+  border: none;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
