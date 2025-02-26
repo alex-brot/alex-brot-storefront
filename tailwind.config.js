@@ -1,3 +1,4 @@
+const {blue} = require("ansi-colors");
 
 
 module.exports = {
@@ -34,14 +35,27 @@ module.exports = {
           80: "#1F2937",
           90: "#111827",
         },
+        'light-blue': {
+          0: "#FFFFFF",
+          5: "#b8ebff",
+          10: "#9ce5ff",
+          20: "#7fdeff",
+          30: "#62d7ff",
+          40: "#4acefb",
+          50: "#31c8fb",
+          60: "#19c3fd",
+          70: "#00beff"
+        },
         background: "var(--background)",
         foreground: "var(--foreground)",
         white: "#ffffff",
         black: "#000000",
         "primary-light": "#FAEDCD",
         "primary-full": "#D4A373",
+        "primary-dark": "#d59b63",
         "primary-lightest": "#FEFAE0",
         "secondary-full": "#CCD5AE",
+        "secondary-lighter": "#ced3bd",
         "secondary-light": "#E9EDC9",
         blue: "#00B2FF",
         red: "#FF4242",
@@ -183,7 +197,7 @@ module.exports = {
         leave: "leave 150ms ease-in forwards",
       },
       boxShadow: {
-        'customProductShadow': '0px 2px 20px rgba(0, 0, 0, 0.2)',
+        'customProductShadow': '0px 2px 10x rgba(0, 0, 0, 0.2)',
       }
     },
   },
