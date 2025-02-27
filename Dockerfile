@@ -1,5 +1,5 @@
 FROM node:20-slim AS base
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10.5.2
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 COPY . /app
