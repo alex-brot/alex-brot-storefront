@@ -25,9 +25,14 @@ export async function generateStaticParams() {
         return listProducts({
           countryCode,
           queryParams: { fields: "handle" },
-        }).then(({ response }) => response.products)
+        })
+          .then(({ response }) => response?.products || [])  // Ensure an array
+          .catch((error) => {
+            console.error(`Failed to fetch products for ${countryCode}:`, error)
+            return []
+          })
       })
-    ).then((results) => results.flat())
+    ).then((results) => results.flat());
 
     console.log(products)
 
