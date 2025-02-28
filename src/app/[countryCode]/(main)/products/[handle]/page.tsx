@@ -20,10 +20,14 @@ export async function generateStaticParams() {
       return []
     }
 
-    const products = await listProducts({
-      countryCode: "at",
-      queryParams: { fields: "handle" },
-    }).then(({ response }) => response.products)
+    const products = await Promise.all(
+      countryCodes.map(async (countryCode) => {
+        return listProducts({
+          countryCode,
+          queryParams: { fields: "handle" },
+        }).then(({ response }) => response.products)
+      })
+    ).then((results) => results.flat())
 
     console.log(products)
 
