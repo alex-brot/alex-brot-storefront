@@ -14,6 +14,8 @@ export async function generateStaticParams() {
       regions?.map((r) => r.countries?.map((c) => c.iso_2)).flat()
     )
 
+    console.log(countryCodes)
+
     if (!countryCodes) {
       return []
     }
@@ -22,6 +24,8 @@ export async function generateStaticParams() {
       countryCode: "AT",
       queryParams: { fields: "handle" },
     }).then(({ response }) => response.products)
+
+    console.log(products)
 
     return countryCodes
       .map((countryCode) =>
