@@ -47,6 +47,8 @@ jobs:
           build-args: |
             "MEDUSA_BACKEND=https://dev.medusa.alex-brot.stenz.dev"
             "MEDUSA_PUBLISHABLE_KEY=${{ secrets.DEV_MEDUSA_PUBLISHABLE_KEY }}"
+            "BLOG_POST_URL=https://strapi.alex-brot.stenz.dev/"
+            "BLOG_API_TOKEN=${{ secret.BLOG_API_TOKEN }}"
 
 
   bump-deployment-image:
