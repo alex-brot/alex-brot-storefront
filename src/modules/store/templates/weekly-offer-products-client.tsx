@@ -3,16 +3,19 @@
 import ProductPreview from "@modules/products/components/product-preview"
 import { WeeklyOffer } from "@lib/data/products"
 
-import { HttpTypes, StoreRegion } from "@medusajs/types"
+import {HttpTypes, StoreCustomer, StoreRegion} from "@medusajs/types"
 import { useEffect, useState } from "react"
 import { getProductPrice } from "@lib/util/get-product-price"
+import {Customer} from "@medusajs/js-sdk/dist/admin/customer";
 
 export default function WeeklyOfferProductsClientTemplate({
   weeklyoffers,
   region,
+  customer,
 }: {
   weeklyoffers: WeeklyOffer[]
-  region: StoreRegion
+  region: StoreRegion,
+  customer?: StoreCustomer | null | undefined,
 }) {
   const [selectedProducts, setSelectedProducts] = useState(
     new Map<HttpTypes.StoreProduct, number>()
@@ -98,7 +101,7 @@ export default function WeeklyOfferProductsClientTemplate({
             </div>
 
             <div className="flex justify-center py-5">
-              <button className="rounded-lg py-1.5 px-3.5 bg-secondary-light duration-150 ease-in-out" onClick={() => console.log(selectedProducts)}>Go to bag</button>
+              <button className="rounded-lg text-lg font-semibold py-1 px-3.5 bg-secondary-light duration-150 ease-in-out" onClick={() => console.log(selectedProducts)}>{customer? "Produkte hinzufügen" : "Melde dich zuerst an"}</button>
             </div>
           </div>
         </div>

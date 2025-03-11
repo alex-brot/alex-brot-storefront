@@ -94,6 +94,10 @@ module.exports = {
       fontSize: {
         "3xl": "2rem",
       },
+      rotate: {
+        "-rotate-45": "-45deg",
+        "rotate-135": "135deg",
+      },
       fontFamily: {
         sans: [
           "Inter",

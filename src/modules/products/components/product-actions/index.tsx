@@ -219,10 +219,10 @@ export default function ProductActions({
           {!selectedVariant && !options
             ? "Select variant"
             : !inStock || !isValidVariant
-            ? "Out of stock"
+            ? "Ausverkauft"
             : !customer
-            ? "Sign in to buy"
-            : "Add to cart"}
+            ? "Melde dich an"
+            : "Produkt hinzufügen"}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

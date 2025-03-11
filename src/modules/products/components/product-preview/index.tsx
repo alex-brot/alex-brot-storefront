@@ -68,7 +68,7 @@ export default function ProductPreview({
 
           <div className="w-full h-fit flex justify-center items-center">
             <div className="w-24 h-full flex justify-between items-center">
-              <button onClick={() => decreaseProductQuantity(product)}>
+              <button className="cursor-pointer" onClick={() => decreaseProductQuantity(product)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -87,7 +87,7 @@ export default function ProductPreview({
 
               <h1 className="font-semibold text-xl">{amount}</h1>
 
-              <button onClick={() => increaseProductQuantity(product)}>
+              <button className="cursor-pointer" onClick={() => increaseProductQuantity(product)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -108,7 +108,7 @@ export default function ProductPreview({
 
           <div className="flex justify-end">
             <LocalizedClientLink
-              className="rounded-lg bg-primary-dark hover:bg-primary-full ease-in-out duration-150 text-white py-2 px-3"
+              className="rounded-lg bg-primary-dark hover:bg-primary-full ease-in-out duration-150 text-white py-1 px-3.5"
               href={`/products/${product.handle}`}
             >
               More Information
