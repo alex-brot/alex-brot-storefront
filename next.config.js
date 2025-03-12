@@ -17,6 +17,14 @@ const nextConfig = withStoreConfig({
         protocol: "https",
         hostname: "alex-brot.s3.eu-central-1.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "dev.strapi.alex-brot.stenz.dev"
+      },
+      {
+        protocol: "https",
+        hostname: "strapi.alex-brot.stenz.dev"
+      }
     ],
   },
   eslint: {

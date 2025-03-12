@@ -3,22 +3,37 @@
 import ProductPreview from "@modules/products/components/product-preview"
 import { WeeklyOffer } from "@lib/data/products"
 
-import { HttpTypes, StoreRegion } from "@medusajs/types"
-import { useEffect, useState } from "react"
+import {
+  HttpTypes,
+  StoreCustomer,
+  StoreProduct,
+  StoreRegion,
+} from "@medusajs/types"
+import { useEffect, useMemo, useState } from "react"
 import { getProductPrice } from "@lib/util/get-product-price"
+import { addToCart } from "@lib/data/cart"
+import {useRouter} from "next/navigation";
+import { useParams } from "next/navigation"
+import {router} from "next/client";
 
 export default function WeeklyOfferProductsClientTemplate({
   weeklyoffers,
   region,
+  customer,
 }: {
   weeklyoffers: WeeklyOffer[]
   region: StoreRegion
+  customer?: StoreCustomer | null | undefined
 }) {
   const [selectedProducts, setSelectedProducts] = useState(
     new Map<HttpTypes.StoreProduct, number>()
   )
 
+  const [isAdding, setIsAdding] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
+  const lineCount = useState(0)
+  const countryCode = useParams().countryCode as string
+  const router = useRouter();
 
   const addProduct = (product: HttpTypes.StoreProduct) => {
     const newMap = new Map<HttpTypes.StoreProduct, number>(selectedProducts)
@@ -46,11 +61,55 @@ export default function WeeklyOfferProductsClientTemplate({
     setTotalPrice(total)
   }, [selectedProducts])
 
+  const optionsAsKeymap = (
+    variantOptions: HttpTypes.StoreProductVariant["options"]
+  ) => {
+    return variantOptions?.reduce(
+      (acc: Record<string, string>, varopt: any) => {
+        acc[varopt.option_id] = varopt.value
+        return acc
+      },
+      {}
+    )
+  }
+
+  async function handleAddProducts(
+    selectedProducts: Map<StoreProduct, number>
+  ) {
+    if (!customer) return null
+
+    setIsAdding(true);
+
+    try {
+      for (let [product, quantity] of selectedProducts) {
+        if (!product.variants || product.variants.length === 0) {
+          console.error("error, no product variant found")
+          return
+        }
+
+        const selectedVariant = product.variants[0]
+
+        if (selectedVariant?.id) {
+          await addToCart({
+            variantId: selectedVariant.id,
+            quantity: quantity,
+            countryCode, // Adjust country code if needed
+          })
+        }
+      }
+    } catch (error) {
+      console.error("Error adding products to cart:", error)
+    }
+
+    router.push("/cart")
+    setIsAdding(false)
+  }
+
   return (
     <>
       <div className="mb-16 flex justify-between mt-10 font-semibold ">
         <h1 data-testid="store-page-title" className="text-5xl">
-          Weekly Offer.
+          Derzeitiges Wochenangebot.
         </h1>
         <h1 className="text-4xl text-grey-30 underline">
           {weeklyoffers[0].title.toUpperCase()}
@@ -63,7 +122,7 @@ export default function WeeklyOfferProductsClientTemplate({
             className="flex flex-col w-full gap-y-6"
             data-testid="products-list"
           >
-            {weeklyoffers[0].products.map((p) => {
+            {weeklyoffers[0].products.map((p, index, arr) => {
               return (
                 <li
                   key={p.id}
@@ -76,6 +135,13 @@ export default function WeeklyOfferProductsClientTemplate({
                     decreaseProductQuantity={removeProduct}
                     amount={selectedProducts.get(p) || 0}
                   />
+
+
+                  {arr.length > 1 && index < arr.length - 1 && (
+                      <div className="flex justify-center">
+                        <hr className="mt-5 w-full" />
+                      </div>
+                  )}
                 </li>
               )
             })}
@@ -84,21 +150,31 @@ export default function WeeklyOfferProductsClientTemplate({
 
         <div className="w-1/4 relative flex justify-end">
           <div className="w-1/6 fixed h-fit border border-grey-30 bg-white rounded-lg shadow-md">
-            <div className="py-5 mx-6 h-fit flex justify-between items-center">
-              <h1 className="text-2xl font-semibold">Gesamtpreis:</h1>
-              <h1 className="text-xl">{totalPrice}€</h1>
+            <div className="py-5 px-4 h-fit flex justify-between items-center">
+              <h1 className="text-2xl font-semibold whitespace-nowrap">
+                Gesamtpreis:
+              </h1>
+              <h1 className="text-xl whitespace-nowrap">{totalPrice}€</h1>
             </div>
 
-            <div className="flex justify-center">
-              <div className="w-2/3 ">
-                <small className="text-grey-40 text-center">
-                  Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem Warenkorb hinzuzufügen.
+            <div className="flex justify-center px-4">
+              <div className="w-full">
+                <small className="text-grey-40 text-center block">
+                  Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu
+                  Ihrem Warenkorb hinzuzufügen.
                 </small>
               </div>
             </div>
 
-            <div className="flex justify-center py-5">
-              <button className="rounded-lg py-1.5 px-3.5 bg-secondary-light duration-150 ease-in-out" onClick={() => console.log(selectedProducts)}>Go to bag</button>
+            <div className="flex justify-center py-5 px-4">
+
+                <button
+                  className="rounded-lg text-lg font-semibold py-1 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out"
+                  onClick={() => handleAddProducts(selectedProducts)}
+                  disabled={!customer}
+                >
+                  {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
+                </button>
             </div>
           </div>
         </div>

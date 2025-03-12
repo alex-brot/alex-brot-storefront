@@ -14,14 +14,27 @@ export async function generateStaticParams() {
       regions?.map((r) => r.countries?.map((c) => c.iso_2)).flat()
     )
 
+    console.log(countryCodes)
+
     if (!countryCodes) {
       return []
     }
 
-    const products = await listProducts({
-      countryCode: "AT",
-      queryParams: { fields: "handle" },
-    }).then(({ response }) => response.products)
+    const products = await Promise.all(
+      countryCodes.map(async (countryCode) => {
+        return listProducts({
+          countryCode,
+          queryParams: { fields: "handle" },
+        })
+          .then(({ response }) => response?.products || [])  // Ensure an array
+          .catch((error) => {
+            console.error(`Failed to fetch products for ${countryCode}:`, error)
+            return []
+          })
+      })
+    ).then((results) => results.flat());
+
+    console.log(products)
 
     return countryCodes
       .map((countryCode) =>
