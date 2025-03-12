@@ -26,7 +26,6 @@ export const getCodes = async ({}): Promise<{
       },
     }
   } catch (e) {
-    console.error(e)
     return {
       response: {
         posAuth: undefined,
