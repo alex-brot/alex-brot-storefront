@@ -9,13 +9,17 @@ import OrderDetails from "@modules/order/components/order-details"
 import ShippingDetails from "@modules/order/components/shipping-details"
 import PaymentDetails from "@modules/order/components/payment-details"
 import { HttpTypes } from "@medusajs/types"
+import EntryCode from "@modules/account/components/entry-code"
+import { PosAuthCodesDTO } from "@lib/data/pos-auth"
 
 type OrderCompletedTemplateProps = {
   order: HttpTypes.StoreOrder
+  posAuth: PosAuthCodesDTO | undefined
 }
 
 export default async function OrderCompletedTemplate({
   order,
+  posAuth,
 }: OrderCompletedTemplateProps) {
   const cookies = await nextCookies()
 
@@ -37,6 +41,7 @@ export default async function OrderCompletedTemplate({
             <span>Your order was placed successfully.</span>
           </Heading>
           <OrderDetails order={order} />
+          <EntryCode posAuth={posAuth} />
           <Heading level="h2" className="flex flex-row text-3xl-regular">
             Summary
           </Heading>

@@ -1,4 +1,5 @@
 import { retrieveOrder } from "@lib/data/orders"
+import { getCodes } from "@lib/data/pos-auth"
 import OrderCompletedTemplate from "@modules/order/templates/order-completed-template"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
@@ -15,9 +16,17 @@ export default async function OrderConfirmedPage(props: Props) {
   const params = await props.params
   const order = await retrieveOrder(params.id).catch(() => null)
 
+  let {
+    response: { posAuth },
+  } = await getCodes({})
+  
+  console.log(posAuth)
+
+
+
   if (!order) {
     return notFound()
   }
 
-  return <OrderCompletedTemplate order={order} />
+  return <OrderCompletedTemplate order={order} posAuth={posAuth}/>
 }
