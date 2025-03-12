@@ -114,8 +114,26 @@ export default function WeeklyOfferProductsClientTemplate({
         </h1>
       </div>
 
-      <div className="flex gap-x-4 ">
-        <div className="w-3/4">
+      {/* Total Price Box for Mobile */}
+      <div className="w-full sm:hidden bg-white shadow-md rounded-lg p-4 mb-4">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-semibold">Gesamtpreis:</h1>
+          <h1 className="text-xl">{totalPrice}€</h1>
+        </div>
+        <small className="text-grey-40 block text-center mt-2">
+          Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem Warenkorb hinzuzufügen.
+        </small>
+        <button
+            className="w-full mt-4 rounded-lg text-lg font-semibold py-2 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
+            onClick={() => handleAddProducts(selectedProducts)}
+            disabled={!customer}
+        >
+          {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
+        </button>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-x-4 items-center sm:items-start">
+        <div className="w-full sm:w-3/4">
           <ul
             className="flex flex-col w-full gap-y-6"
             data-testid="products-list"
@@ -145,32 +163,25 @@ export default function WeeklyOfferProductsClientTemplate({
           </ul>
         </div>
 
-        <div className="w-1/4 relative flex justify-end">
-          <div className="w-1/6 fixed h-fit border border-grey-30 bg-white rounded-lg shadow-md">
+        {/*Total Price Box for Desktop*/}
+        <div className="w-1/4 relative hidden sm:flex justify-end">
+          <div className="w-fit lg:w-5/6 sticky top-4 h-fit border border-grey-30 bg-white rounded-lg shadow-md">
             <div className="py-5 px-4 h-fit flex justify-between items-center">
-              <h1 className="text-2xl font-semibold whitespace-nowrap">
-                Gesamtpreis:
-              </h1>
-              <h1 className="text-xl whitespace-nowrap">{totalPrice}€</h1>
+              <h1 className="text-2xl font-semibold">Gesamtpreis:</h1>
+              <h1 className="text-xl">{totalPrice}€</h1>
             </div>
 
             <div className="flex justify-center px-4">
-              <div className="w-full">
-                <small className="text-grey-40 text-center block">
-                  Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu
-                  Ihrem Warenkorb hinzuzufügen.
-                </small>
-              </div>
+              <small className="text-grey-40 text-center block">
+                Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem Warenkorb hinzuzufügen.
+              </small>
             </div>
 
             <div className="flex justify-center py-5 px-4">
               <button
-                className="rounded-lg text-lg font-semibold py-1 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
-                onClick={() => handleAddProducts(selectedProducts)}
-                disabled={
-                  !customer ||
-                  selectedProducts.values().reduce((a, b) => a + b, 0) === 0
-                }
+                  className="rounded-lg text-lg font-semibold py-2 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
+                  onClick={() => handleAddProducts(selectedProducts)}
+                  disabled={!customer}
               >
                 {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
               </button>

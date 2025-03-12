@@ -35,12 +35,12 @@ export default function ProductPreview({
   }
 
   return (
-    <div className="group">
+    <div className="group w-full flex flex-col items-center">
       <div
         data-testid="product-wrapper"
-        className="relative px-3  hover:shadow-md transition-shadow duration-300 rounded-xl"
+        className="relative px-3 py-3 hover:shadow-md transition-shadow duration-300 rounded-xl w-full"
       >
-        <div className="space-x-10 grid grid-cols-5 mx-6 justify-between items-center">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-4 justify-items-center items-center text-center">
           <div className="py-3">
             <Thumbnail
               className="z-0 w-40"

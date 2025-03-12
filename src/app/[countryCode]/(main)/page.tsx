@@ -36,7 +36,7 @@ export default async function Home(props: {
     <>
       <Hero />
       <div className="py-16 featured-products-wrapper">
-        <h1 className="text-center text-6xl font-semibold mb-6">Mein persönlicher Blog</h1>
+        <h1 className="text-center text-6xl font-semibold mb-6 mx-5">Mein persönlicher Blog</h1>
         <div className="container mx-auto px-10 py-8">
           {/* Responsive grid: 1 column on small screens, 2 on medium, 3 on large */}
           <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
