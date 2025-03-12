@@ -35,12 +35,13 @@ export default async function Home(props: {
   return (
     <>
       <Hero />
-      <div className="py-12 featured-products-wrapper">
-        <div className="container mx-auto px-4 py-8">
+      <div className="py-16 featured-products-wrapper">
+        <h1 className="text-center text-6xl font-semibold mb-6">Mein persönlicher Blog</h1>
+        <div className="container mx-auto px-10 py-8">
           {/* Responsive grid: 1 column on small screens, 2 on medium, 3 on large */}
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {postPreviews.map((postPreview) => (
-              <BlogPostCard key={postPreview.id} preview={postPreview} />
+                <BlogPostCard key={postPreview.id} preview={postPreview}/>
             ))}
           </ul>
         </div>

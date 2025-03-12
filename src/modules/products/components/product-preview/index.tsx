@@ -38,9 +38,9 @@ export default function ProductPreview({
     <div className="group">
       <div
         data-testid="product-wrapper"
-        className="relative bg-grey-5 px-3 hover:shadow-md transition-shadow duration-300 rounded-xl"
+        className="relative px-3  hover:shadow-md transition-shadow duration-300 rounded-xl"
       >
-        <div className="grid grid-cols-5 mx-6 justify-between items-center">
+        <div className="space-x-10 grid grid-cols-5 mx-6 justify-between items-center">
           <div className="py-3">
             <Thumbnail
               className="z-0 w-40"

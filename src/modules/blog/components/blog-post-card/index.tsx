@@ -17,7 +17,7 @@ export default async function BlogPostCard({ preview }: { preview: PostPreview }
   return (
     <li>
       <LocalizedClientLink href={`/blog/post/${preview.id}`} className="block">
-        <div className="bg-white border border-gray rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+        <div className="bg-white border border-gray rounded-xl overflow-hidden hover:shadow-lg hover:scale-105 duration-300">
           {preview.featuredImage && (
             <div className="relative h-48">
               <Image

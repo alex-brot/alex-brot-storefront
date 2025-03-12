@@ -26,7 +26,7 @@ export default async function WeeklyOfferProducts({
       <>
         <div className="mb-3 mt-4 text-2xl-semi">
           <h1 data-testid="store-page-title">
-            There is no weekly offer available at the moment.
+            Derzeit ist kein Wochenangebot verfügbar.
           </h1>
         </div>
       </>

@@ -63,25 +63,12 @@ function HeroSectionParallax({
                           Jetzt bestellen
                         </Button>
                       </LocalizedClientLink>
-
-                      {/* Pfeile hinzufügen */}
-                        {/*
-                      <div className="relative">
-                        <img
-                          className="absolute left-56 w-36 -mt-6 -rotate-45"
-                          src="/public-assets/home_arrow.svg"
-                          alt="arrow_right"
-                          width={200}
-                          height={200}
-                        />
-                      </div>
-                      */}
                     </div>
                   </div>
 
-                  <div className="z-10 mt-40 flex justify-end">
+                  <div className="z-10 mt-44 flex justify-end">
                     <img
-                      className="w-full max-w-[500px] md:w-[500px] h-auto"
+                      className="w-0 max-w-[500px] md:w-[450px] lg:w-[600px] h-auto"
                       src="/public-assets/persons/alex_cutout.png"
                       alt="alex_cutout"
                       width={500}
