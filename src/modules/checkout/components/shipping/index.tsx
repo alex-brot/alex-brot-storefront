@@ -1,26 +1,37 @@
 "use client"
 
 import { RadioGroup, Radio } from "@headlessui/react"
-import { setShippingMethod } from "@lib/data/cart"
+import { useCustomerMe } from "@lib/context/customerMe"
+import {
+  setOrderAddressPickUp,
+  setShippingMethod,
+} from "@lib/data/cart"
 import { calculatePriceForShippingOption } from "@lib/data/fulfillment"
 import { convertToLocale } from "@lib/util/money"
-import { CheckCircleSolid, Loader } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import { CheckCircleSolid, Directions, Loader } from "@medusajs/icons"
+import {
+  HttpTypes,
+  StoreCartShippingMethod,
+  UpdateShippingMethodDTO,
+} from "@medusajs/types"
 import { Button, Heading, Text, clx } from "@medusajs/ui"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import Divider from "@modules/common/components/divider"
 import MedusaRadio from "@modules/common/components/radio"
+import Link from "next/link"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
 type ShippingProps = {
   cart: HttpTypes.StoreCart
   availableShippingMethods: HttpTypes.StoreCartShippingOption[] | null
+  customer: HttpTypes.StoreCustomer | null
 }
 
-const Shipping: React.FC<ShippingProps> = ({
+const PickUp: React.FC<ShippingProps> = ({
   cart,
   availableShippingMethods,
+  customer,
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingPrices, setIsLoadingPrices] = useState(true)
@@ -64,7 +75,33 @@ const Shipping: React.FC<ShippingProps> = ({
     router.push(pathname + "?step=delivery", { scroll: false })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const shippingMethod = availableShippingMethods?.filter(
+      (sm) => sm.id === shippingMethodId
+    )[0]
+
+    if (shippingMethod && shippingMethod.data?.address) {
+      console.log("everything valid in address here")
+      console.log(shippingMethod.data.address)
+
+      const address = shippingMethod.data.address
+
+      // const customer = await getCurrentCustomer()
+
+      if (!customer) {
+        return
+      }
+      await setOrderAddressPickUp(
+        address.street,
+        address.city,
+        address.zip,
+        address.country,
+        customer
+      )
+
+      console.log("should be done now")
+    }
+
     router.push(pathname + "?step=payment", { scroll: false })
   }
 
@@ -104,7 +141,7 @@ const Shipping: React.FC<ShippingProps> = ({
             }
           )}
         >
-          Delivery
+          Pick Up
           {!isOpen && (cart.shipping_methods?.length ?? 0) > 0 && (
             <CheckCircleSolid />
           )}
@@ -155,9 +192,17 @@ const Shipping: React.FC<ShippingProps> = ({
                   >
                     <div className="flex items-center gap-x-4">
                       <MedusaRadio checked={option.id === shippingMethodId} />
-                      <span className="text-base-regular">{option.name}</span>
+                      <span className="text-base">{option.name}</span>
                     </div>
-                    <span className="justify-self-end text-ui-fg-base">
+                    <div className="flex items-center gap-x-2">
+                      <Directions />
+                      <h1 className="text-base">
+                        {option.data?.address?.street} in{" "}
+                        {option.data?.address?.zip} {option.data?.address?.city}{" "}
+                        {option.data?.address?.country}
+                      </h1>
+                    </div>
+                    <span className="justify-self-end text-ui-fg-base text-base">
                       {option.price_type === "flat" ? (
                         convertToLocale({
                           amount: option.amount!,
@@ -181,16 +226,27 @@ const Shipping: React.FC<ShippingProps> = ({
           </div>
 
           <ErrorMessage
-            error={error}
+            error={!customer?.addresses[0] ? "Please add an address" : error}
             data-testid="delivery-option-error-message"
           />
+          {!customer?.addresses[0] && (
+            <Button
+            size="large"
+            className="mr-2"
+              onClick={() =>
+                router.push("/account/addresses")
+              }
+            >
+              Add an address 
+            </Button>
+          )}
 
           <Button
             size="large"
             className="mt-6"
             onClick={handleSubmit}
             isLoading={isLoading}
-            disabled={!cart.shipping_methods?.[0]}
+            disabled={!cart.shipping_methods?.[0] || !customer?.addresses[0]}
             data-testid="submit-delivery-option-button"
           >
             Continue to payment
@@ -221,4 +277,4 @@ const Shipping: React.FC<ShippingProps> = ({
   )
 }
 
-export default Shipping
+export default PickUp

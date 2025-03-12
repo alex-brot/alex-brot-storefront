@@ -2,7 +2,7 @@
 
 import { sdk } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
-import { HttpTypes } from "@medusajs/types"
+import { CartDTO, HttpTypes } from "@medusajs/types"
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import {
@@ -14,6 +14,8 @@ import {
   setCartId,
 } from "./cookies"
 import { getRegion } from "./regions"
+import { log } from "console"
+import { Customer } from "@medusajs/js-sdk/dist/admin/customer"
 
 /**
  * Retrieves a cart by its ID. If no ID is provided, it will use the cart ID from the cookies.
@@ -368,6 +370,45 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
   redirect(
     `/${formData.get("shipping_address.country_code")}/checkout?step=delivery`
   )
+}
+
+export async function setOrderAddressPickUp(
+  street: string,
+  city: string,
+  zip: string,
+  country: string,
+  customer: HttpTypes.StoreCustomer
+) {
+  try {
+    console.log("setOrderAddressPickUp")
+    console.log(street, city, zip, country)
+
+    let data = {
+      shipping_address: {
+        first_name: "Alex",
+        last_name: "Brot",
+        address_1: street,
+        address_2: "",
+        postal_code: zip,
+        city: city,
+        country_code: "at",
+      },
+      billing_address: {
+        first_name: customer.first_name,
+        last_name: customer.last_name,
+        address_1: customer.addresses[0].address_1,
+        address_2: "",
+        postal_code: customer.addresses[0].postal_code,
+        city: customer.addresses[0].city,
+        country_code: customer.addresses[0].country_code,
+      },
+      email: customer.email,
+    } as any
+
+    await updateCart(data)
+  } catch (e: any) {
+    return e.message
+  }
 }
 
 /**
