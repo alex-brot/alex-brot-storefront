@@ -15,7 +15,6 @@ const EntryCode = ({ posAuth }: { posAuth: PosAuthCodesDTO | undefined }) => {
   if (!posAuth || posAuth.code.length === 0) {
     return (
       <div>
-        <h1 className="text-2xl-semi mb-12">Entry Codes</h1>
         <div
           className="w-full flex flex-col items-center"
           data-testid="no-orders-container"
@@ -38,7 +37,6 @@ const EntryCode = ({ posAuth }: { posAuth: PosAuthCodesDTO | undefined }) => {
 
   return (
     <div>
-      <h1 className="mb-10 text-2xl-semi">Entry Codes</h1>
       <div className="mt-4 flex flex-col items-center justify-center gap-y-1">
         <h1 className="text-2xl font-bold mb-8">Your Personal Code</h1>
         <Tooltip content="Click to reveal the code">
@@ -51,6 +49,7 @@ const EntryCode = ({ posAuth }: { posAuth: PosAuthCodesDTO | undefined }) => {
                 <div
                   id={index.toString()}
                   className="flex items-center justify-center gap-x-2 w-11 bg-neutral-200 h-20 border-2 border-neutral-400 rounded-md"
+                  key={index}
                 >
                   <h1 className="text-4xl">
                     {isRevealed ? posAuth.code[index] : "*"}
