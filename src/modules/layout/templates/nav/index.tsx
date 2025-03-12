@@ -4,8 +4,6 @@ import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
-import SideMenu from "@modules/layout/components/side-menu"
-import Link from "next/link"
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -17,7 +15,9 @@ export default async function Nav() {
           <div className="flex-1 basis-0 h-full flex items-center">
             <div className="h-full">
               {/* <SideMenu regions={regions} /> */}
-              <LocalizedClientLink href="/blog" className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:underline"
+              <LocalizedClientLink
+                href="/blog"
+                className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:underline"
               >
                 Blog
               </LocalizedClientLink>
@@ -51,7 +51,7 @@ export default async function Nav() {
           </div>
 
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
+            <div className="flex items-center gap-x-6 h-full">
               {process.env.FEATURE_SEARCH_ENABLED && (
                 <LocalizedClientLink
                   className="hover:cursor-pointer"
