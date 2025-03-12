@@ -9,12 +9,10 @@ import {
   StoreProduct,
   StoreRegion,
 } from "@medusajs/types"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { addToCart } from "@lib/data/cart"
-import {useRouter} from "next/navigation";
-import { useParams } from "next/navigation"
-import {router} from "next/client";
+import { useParams, useRouter } from "next/navigation"
 
 export default function WeeklyOfferProductsClientTemplate({
   weeklyoffers,
@@ -33,7 +31,7 @@ export default function WeeklyOfferProductsClientTemplate({
   const [totalPrice, setTotalPrice] = useState(0)
   const lineCount = useState(0)
   const countryCode = useParams().countryCode as string
-  const router = useRouter();
+  const router = useRouter()
 
   const addProduct = (product: HttpTypes.StoreProduct) => {
     const newMap = new Map<HttpTypes.StoreProduct, number>(selectedProducts)
@@ -78,7 +76,7 @@ export default function WeeklyOfferProductsClientTemplate({
   ) {
     if (!customer) return null
 
-    setIsAdding(true);
+    setIsAdding(true)
 
     try {
       for (let [product, quantity] of selectedProducts) {
@@ -136,11 +134,10 @@ export default function WeeklyOfferProductsClientTemplate({
                     amount={selectedProducts.get(p) || 0}
                   />
 
-
                   {arr.length > 1 && index < arr.length - 1 && (
-                      <div className="flex justify-center">
-                        <hr className="mt-5 w-full" />
-                      </div>
+                    <div className="flex justify-center">
+                      <hr className="mt-5 w-full" />
+                    </div>
                   )}
                 </li>
               )
@@ -167,14 +164,16 @@ export default function WeeklyOfferProductsClientTemplate({
             </div>
 
             <div className="flex justify-center py-5 px-4">
-
-                <button
-                  className="rounded-lg text-lg font-semibold py-1 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out"
-                  onClick={() => handleAddProducts(selectedProducts)}
-                  disabled={!customer}
-                >
-                  {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
-                </button>
+              <button
+                className="rounded-lg text-lg font-semibold py-1 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
+                onClick={() => handleAddProducts(selectedProducts)}
+                disabled={
+                  !customer ||
+                  selectedProducts.values().reduce((a, b) => a + b, 0) === 0
+                }
+              >
+                {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
+              </button>
             </div>
           </div>
         </div>
