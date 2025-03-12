@@ -14,8 +14,9 @@ import {
   StoreCartShippingMethod,
   UpdateShippingMethodDTO,
 } from "@medusajs/types"
-import { Button, Heading, Text, clx } from "@medusajs/ui"
+import { Button, Heading, Text, clx, useToggleState } from "@medusajs/ui"
 import ErrorMessage from "@modules/checkout/components/error-message"
+import AddressModal from "@modules/common/components/address-modal"
 import Divider from "@modules/common/components/divider"
 import MedusaRadio from "@modules/common/components/radio"
 import Link from "next/link"
@@ -46,6 +47,7 @@ const PickUp: React.FC<ShippingProps> = ({
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
+  const { state, open, close: closeModal } = useToggleState(false)
 
   const isOpen = searchParams.get("step") === "delivery"
 
@@ -230,16 +232,11 @@ const PickUp: React.FC<ShippingProps> = ({
             data-testid="delivery-option-error-message"
           />
           {!customer?.addresses[0] && (
-            <Button
-            size="large"
-            className="mr-2"
-              onClick={() =>
-                router.push("/account/addresses")
-              }
-            >
-              Add an address 
+            <Button size="large" className="mr-2" onClick={open}>
+              Add an address
             </Button>
           )}
+          <AddressModal region={cart.region!} addresses={customer?.addresses || []} state={state} closeModal={closeModal} />
 
           <Button
             size="large"
