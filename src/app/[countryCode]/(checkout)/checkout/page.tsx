@@ -17,7 +17,7 @@ export default async function Checkout() {
     return notFound()
   }
 
-  const customer = await retrieveCustomer()
+  const customer = await retrieveCustomer(true)
 
   if (!customer) {
     redirect("/account")
