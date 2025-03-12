@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
 }
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default function RootLayout(props: { children: React.ReactNode}) {
   return (
     <html lang="en" data-mode="light">
       <body>
         <TooltipProvider>
-          <main className="relative">{props.children}</main>
+            <main className="relative">{props.children}</main>
         </TooltipProvider>
       </body>
     </html>
