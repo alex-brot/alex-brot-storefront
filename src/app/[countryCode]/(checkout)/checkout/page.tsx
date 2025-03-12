@@ -19,27 +19,25 @@ export default async function Checkout() {
 
   const customer = await retrieveCustomer()
 
-  if(!customer) {
+  if (!customer) {
     redirect("/account")
-  }
-
-  if(!customer?.metadata || customer.metadata.isVerified === false) {
-    return(
-      <div className="grid grid-cols-1 small:grid-cols-[1fr_416px] content-container gap-x-40 py-12">
-        <div>
-          <h2 className="text-2xl font-bold">Alex hasn't verified you yett</h2>
-          <p className="mt-2">Please wait till you recieve a email</p>
-        </div>
-      </div>
-    )
   }
 
   return (
     <div className="grid grid-cols-1 small:grid-cols-[1fr_416px] content-container gap-x-40 py-12">
-      <PaymentWrapper cart={cart}>
-        <CheckoutForm cart={cart} customer={customer} />
-      </PaymentWrapper>
-      <CheckoutSummary cart={cart} />
+      {!customer?.metadata || customer.metadata.isVerified === false ? (
+        <div>
+          <h2 className="text-2xl font-bold">Alex hasn't verified you yet</h2>
+          <p className="mt-2">Please wait till you recieve a email</p>
+        </div>
+      ) : (
+        <>
+          <PaymentWrapper cart={cart}>
+            <CheckoutForm cart={cart} customer={customer} />
+          </PaymentWrapper>
+          <CheckoutSummary cart={cart} />
+        </>
+      )}
     </div>
   )
 }
