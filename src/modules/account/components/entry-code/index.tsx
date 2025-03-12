@@ -16,7 +16,7 @@ const EntryCode = ({ posAuth }: { posAuth: PosAuthCodesDTO | undefined }) => {
     return (
       <div>
         <div
-          className="w-full flex flex-col items-center"
+          className="w-full flex flex-col items-start"
           data-testid="no-orders-container"
         >
           <h2 className="text-lg font-semibold">Nothing to see here</h2>
