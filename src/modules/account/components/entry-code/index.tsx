@@ -24,7 +24,7 @@ const EntryCode = ({ posAuth }: { posAuth: PosAuthCodesDTO | undefined }) => {
             Don&apos;t have a code yet? Let us <strong>change that!</strong>
           </p>
           <div className="mt-4">
-            <LocalizedClientLink href="/" passHref>
+            <LocalizedClientLink href="/store" passHref>
               <Button data-testid="continue-shopping-button">
                 Make your first order
               </Button>
