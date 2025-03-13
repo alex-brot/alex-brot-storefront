@@ -1,5 +1,4 @@
-import LocalizedClientLink from "@modules/common/components/localized-client-link";
-
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 export default function BlogNav() {
   return (

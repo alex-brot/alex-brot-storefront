@@ -1,5 +1,6 @@
 import { listProductsWithSort } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
+import { StoreProduct } from "@medusajs/types"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
@@ -75,7 +76,21 @@ export default async function PaginatedProducts({
         {products.map((p) => {
           return (
             <li key={p.id}>
-              <ProductPreview product={p} region={region} />
+              <ProductPreview
+                product={p}
+                region={region}
+                increaseProductQuantity={function (
+                  product: StoreProduct
+                ): void {
+                  throw new Error("Function not implemented.")
+                }}
+                decreaseProductQuantity={function (
+                  product: StoreProduct
+                ): void {
+                  throw new Error("Function not implemented.")
+                }}
+                amount={0}
+              />
             </li>
           )
         })}

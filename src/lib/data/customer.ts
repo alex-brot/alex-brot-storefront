@@ -14,29 +14,30 @@ import {
   setAuthToken,
 } from "./cookies"
 
-export const retrieveCustomer =
-  async (noCache?: boolean): Promise<HttpTypes.StoreCustomer | null> => {
-    const headers = {
-      ...(await getAuthHeaders()),
-    }
-
-    const next = {
-      ...(await getCacheOptions("customers")),
-    }
-
-    return await sdk.client
-      .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
-        method: "GET",
-        query: {
-          fields: "*orders",
-        },
-        headers,
-        next,
-        cache: noCache ? "no-cache" : "force-cache",
-      })
-      .then(({ customer }) => customer)
-      .catch(() => null)
+export const retrieveCustomer = async (
+  noCache?: boolean
+): Promise<HttpTypes.StoreCustomer | null> => {
+  const headers = {
+    ...(await getAuthHeaders()),
   }
+
+  const next = {
+    ...(await getCacheOptions("customers")),
+  }
+
+  return await sdk.client
+    .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
+      method: "GET",
+      query: {
+        fields: "*orders",
+      },
+      headers,
+      next,
+      cache: noCache ? "no-cache" : "force-cache",
+    })
+    .then(({ customer }) => customer)
+    .catch(() => null)
+}
 
 export const updateCustomer = async (body: HttpTypes.StoreUpdateCustomer) => {
   const headers = {

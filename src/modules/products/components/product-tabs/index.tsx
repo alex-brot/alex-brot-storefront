@@ -12,7 +12,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
     {
       label: "Product Information",
       component: <ProductInfoTab product={product} />,
-    }
+    },
   ]
 
   return (
@@ -65,6 +65,5 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
     </div>
   )
 }
-
 
 export default ProductTabs

@@ -19,14 +19,12 @@ export default async function OrderConfirmedPage(props: Props) {
   let {
     response: { posAuth },
   } = await getCodes({})
-  
+
   console.log(posAuth)
-
-
 
   if (!order) {
     return notFound()
   }
 
-  return <OrderCompletedTemplate order={order} posAuth={posAuth}/>
+  return <OrderCompletedTemplate order={order} posAuth={posAuth} />
 }

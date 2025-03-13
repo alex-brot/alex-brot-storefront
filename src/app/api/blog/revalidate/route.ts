@@ -1,10 +1,10 @@
-'use server'
+"use server"
 
 import { revalidatePath } from "next/cache"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest) {
-  const { secret }: {secret: string} = await req.json()
+  const { secret }: { secret: string } = await req.json()
 
   if (secret !== process.env.REVALIDATE_SECRET) {
     return new NextResponse(JSON.stringify({ error: "Invalid secret" }), {

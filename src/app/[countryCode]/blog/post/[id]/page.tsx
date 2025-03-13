@@ -31,7 +31,7 @@ export async function generateStaticParams() {
         id: post.id,
       }))
     )
-    .flat();
+    .flat()
   return staticParams
 }
 

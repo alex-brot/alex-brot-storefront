@@ -14,8 +14,7 @@ export const findProductById = async ({
   regionId,
 }: {
   id: string
-  queryParams?: HttpTypes.FindParams &
-    HttpTypes.StoreProductParams
+  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams
   countryCode?: string
   regionId?: string
 }): Promise<HttpTypes.StoreProduct | null> => {
@@ -62,7 +61,8 @@ export const listProducts = async ({
   regionId,
 }: {
   pageParam?: number
-  queryParams?: HttpTypes.FindParams & HttpTypes.StoreProductParams & { handle?: string }
+  queryParams?: HttpTypes.FindParams &
+    HttpTypes.StoreProductParams & { handle?: string }
   countryCode?: string
   regionId?: string
 }): Promise<{
@@ -206,4 +206,3 @@ export const getWeeklyOffer = async ({}): Promise<{
     },
   }
 }
-

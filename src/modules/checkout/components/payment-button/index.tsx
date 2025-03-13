@@ -23,11 +23,11 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
     !cart.billing_address ||
     (cart.shipping_methods?.length ?? 0) < 1
 
-    console.log(!cart)
-    console.log(cart.shipping_address)
-    console.log(cart.billing_address + "this one")
-    console.log(cart.shipping_methods);
-    
+  console.log(!cart)
+  console.log(cart.shipping_address)
+  console.log(cart.billing_address + "this one")
+  console.log(cart.shipping_methods)
+
   const paymentSession = cart.payment_collection?.payment_sessions?.[0]
 
   switch (true) {
@@ -185,7 +185,6 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         data-testid="submit-order-button"
       >
         Place order {notReady ? " (not ready)" : ""}{" "}
-        
       </Button>
       <ErrorMessage
         error={errorMessage}

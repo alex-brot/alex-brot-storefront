@@ -121,12 +121,13 @@ export default function WeeklyOfferProductsClientTemplate({
           <h1 className="text-xl">{totalPrice}€</h1>
         </div>
         <small className="text-grey-40 block text-center mt-2">
-          Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem Warenkorb hinzuzufügen.
+          Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem
+          Warenkorb hinzuzufügen.
         </small>
         <button
-            className="w-full mt-4 rounded-lg text-lg font-semibold py-2 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
-            onClick={() => handleAddProducts(selectedProducts)}
-            disabled={!customer}
+          className="w-full mt-4 rounded-lg text-lg font-semibold py-2 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
+          onClick={() => handleAddProducts(selectedProducts)}
+          disabled={!customer}
         >
           {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
         </button>
@@ -173,15 +174,16 @@ export default function WeeklyOfferProductsClientTemplate({
 
             <div className="flex justify-center px-4">
               <small className="text-grey-40 text-center block">
-                Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem Warenkorb hinzuzufügen.
+                Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem
+                Warenkorb hinzuzufügen.
               </small>
             </div>
 
             <div className="flex justify-center py-5 px-4">
               <button
-                  className="rounded-lg text-lg font-semibold py-2 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
-                  onClick={() => handleAddProducts(selectedProducts)}
-                  disabled={!customer}
+                className="rounded-lg text-lg font-semibold py-2 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
+                onClick={() => handleAddProducts(selectedProducts)}
+                disabled={!customer}
               >
                 {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
               </button>

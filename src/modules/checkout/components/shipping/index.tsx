@@ -1,25 +1,16 @@
 "use client"
 
 import { RadioGroup, Radio } from "@headlessui/react"
-import { useCustomerMe } from "@lib/context/customerMe"
-import {
-  setOrderAddressPickUp,
-  setShippingMethod,
-} from "@lib/data/cart"
+import { setOrderAddressPickUp, setShippingMethod } from "@lib/data/cart"
 import { calculatePriceForShippingOption } from "@lib/data/fulfillment"
 import { convertToLocale } from "@lib/util/money"
 import { CheckCircleSolid, Directions, Loader } from "@medusajs/icons"
-import {
-  HttpTypes,
-  StoreCartShippingMethod,
-  UpdateShippingMethodDTO,
-} from "@medusajs/types"
-import { Button, Heading, Text, clx, useToggleState } from "@medusajs/ui"
+import { HttpTypes } from "@medusajs/types"
+import { Text, clx, useToggleState } from "@medusajs/ui"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import AddressModal from "@modules/common/components/address-modal"
 import Divider from "@modules/common/components/divider"
 import MedusaRadio from "@modules/common/components/radio"
-import Link from "next/link"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -236,7 +227,12 @@ const PickUp: React.FC<ShippingProps> = ({
               Add an address
             </Button>
           )}
-          <AddressModal region={cart.region!} addresses={customer?.addresses || []} state={state} closeModal={closeModal} />
+          <AddressModal
+            region={cart.region!}
+            addresses={customer?.addresses || []}
+            state={state}
+            closeModal={closeModal}
+          />
 
           <Button
             size="large"

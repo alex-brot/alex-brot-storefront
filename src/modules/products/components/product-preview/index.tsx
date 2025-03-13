@@ -19,7 +19,6 @@ export default function ProductPreview({
   isFeatured?: boolean
   region: HttpTypes.StoreRegion
 }) {
-
   // const pricedProduct = await listProducts({
   //   regionId: region.id,
   //   queryParams: { id: [product.id!] },
@@ -68,7 +67,10 @@ export default function ProductPreview({
 
           <div className="w-full h-fit flex justify-center items-center">
             <div className="w-24 h-full flex justify-between items-center">
-              <button className="cursor-pointer" onClick={() => decreaseProductQuantity(product)}>
+              <button
+                className="cursor-pointer"
+                onClick={() => decreaseProductQuantity(product)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -87,7 +89,10 @@ export default function ProductPreview({
 
               <h1 className="font-semibold text-xl">{amount}</h1>
 
-              <button className="cursor-pointer" onClick={() => increaseProductQuantity(product)}>
+              <button
+                className="cursor-pointer"
+                onClick={() => increaseProductQuantity(product)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

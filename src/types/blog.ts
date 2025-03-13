@@ -10,10 +10,10 @@ export interface BlogPostsResponse {
   meta: Meta
 }
 
-export interface SingleBlogPostResponse{
+export interface SingleBlogPostResponse {
   data: BlogPost
   meta: Meta
-} 
+}
 
 export interface Meta {
   pagination: Pagination
@@ -68,7 +68,6 @@ export interface File {
   url: string
 }
 
-
 export interface BlogPost {
   id: number
   featuredImage: Media
@@ -80,4 +79,3 @@ export interface BlogPost {
   publishedAt: string
   content: string
 }
-

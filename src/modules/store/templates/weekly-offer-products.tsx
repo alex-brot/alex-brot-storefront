@@ -1,7 +1,7 @@
 import { getWeeklyOffer } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import WeeklyOfferProductsClientTemplate from "@modules/store/templates/weekly-offer-products-client"
-import {retrieveCustomer} from "@lib/data/customer";
+import { retrieveCustomer } from "@lib/data/customer"
 
 export default async function WeeklyOfferProducts({
   countryCode,
@@ -17,7 +17,6 @@ export default async function WeeklyOfferProducts({
   let {
     response: { weeklyoffers },
   } = await getWeeklyOffer({})
-
 
   const customer = await retrieveCustomer()
 

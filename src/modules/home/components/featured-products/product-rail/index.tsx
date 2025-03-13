@@ -18,7 +18,7 @@ export default async function ProductRail({
     response: { weeklyoffers },
   } = await getWeeklyOffer({})
 
-  if(weeklyoffers.length === 0) {
+  if (weeklyoffers.length === 0) {
     return null
   }
 
@@ -39,7 +39,21 @@ export default async function ProductRail({
         {weeklyoffers[0].products.map((p) => {
           return (
             <li key={p.id} className="animate-in fade-in zoom-in duration-500">
-              <ProductPreview product={p} region={region} />
+              <ProductPreview
+                product={p}
+                region={region}
+                increaseProductQuantity={function (
+                  product: HttpTypes.StoreProduct
+                ): void {
+                  throw new Error("Function not implemented.")
+                }}
+                decreaseProductQuantity={function (
+                  product: HttpTypes.StoreProduct
+                ): void {
+                  throw new Error("Function not implemented.")
+                }}
+                amount={0}
+              />
             </li>
           )
         })}

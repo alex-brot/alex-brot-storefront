@@ -5,7 +5,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 import EntryCode from "@modules/account/components/entry-code"
-import { getCodes, PosAuthCodesDTO } from "@lib/data/pos-auth"
+import { PosAuthCodesDTO } from "@lib/data/pos-auth"
 
 type OverviewProps = {
   customer: HttpTypes.StoreCustomer | null

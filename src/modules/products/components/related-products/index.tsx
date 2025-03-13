@@ -1,8 +1,7 @@
 import { getWeeklyOffer } from "@lib/data/products"
 import { getRegion } from "@lib/data/regions"
 import { HttpTypes } from "@medusajs/types"
-import Product from "../product-preview"
-import ProductSmall from "@modules/products/components/product-small";
+import ProductSmall from "@modules/products/components/product-small"
 
 type RelatedProductsProps = {
   product: HttpTypes.StoreProduct
@@ -19,12 +18,10 @@ export default async function RelatedProducts({
     return null
   }
 
-  const products = await getWeeklyOffer({
-  }).then(({ response }) => {
-    return response.weeklyoffers.flatMap(offer => offer.products)
-      .filter(
-      (responseProduct) => responseProduct.id !== product.id
-    )
+  const products = await getWeeklyOffer({}).then(({ response }) => {
+    return response.weeklyoffers
+      .flatMap((offer) => offer.products)
+      .filter((responseProduct) => responseProduct.id !== product.id)
   })
 
   if (!products.length) {
@@ -45,7 +42,11 @@ export default async function RelatedProducts({
       <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
         {products.map((product) => (
           <li key={product.id} className="w-full">
-            <ProductSmall region={region} product={product} />
+            <ProductSmall region={region} product={product} increaseProductQuantity={function (product: HttpTypes.StoreProduct): void {
+              throw new Error("Function not implemented.")
+            } } decreaseProductQuantity={function (product: HttpTypes.StoreProduct): void {
+              throw new Error("Function not implemented.")
+            } } amount={0} />
           </li>
         ))}
       </ul>

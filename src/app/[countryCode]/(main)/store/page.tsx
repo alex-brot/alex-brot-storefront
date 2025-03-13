@@ -28,7 +28,7 @@ export default async function StorePage(props: Params) {
   const customer = await retrieveCustomer().catch(() => null)
 
   console.log(customer)
-  
+
   if (!customer) {
     redirect("/account")
   }

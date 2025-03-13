@@ -93,8 +93,6 @@ const Item = ({ item, type = "full", currencyCode }: ItemProps) => {
                   </option>
                 )
               )}
-
-
             </CartItemSelect>
             {updating && <Spinner />}
           </div>

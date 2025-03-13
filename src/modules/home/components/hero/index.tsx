@@ -3,7 +3,6 @@
 import { ParallaxProvider } from "react-scroll-parallax"
 import HeroSection from "./HeroSection"
 
-
 const Hero = () => {
   return (
     <ParallaxProvider>

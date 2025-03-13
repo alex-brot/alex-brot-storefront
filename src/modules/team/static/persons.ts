@@ -1,6 +1,5 @@
 import { Person } from "types/person"
 
-
 export const devs: Person[] = [
   {
     name: "Michael S",

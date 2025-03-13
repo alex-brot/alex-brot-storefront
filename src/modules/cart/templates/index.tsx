@@ -4,7 +4,7 @@ import EmptyCartMessage from "../components/empty-cart-message"
 import SignInPrompt from "../components/sign-in-prompt"
 import Divider from "@modules/common/components/divider"
 import { HttpTypes } from "@medusajs/types"
-import {  Heading } from "@medusajs/ui"
+import { Heading } from "@medusajs/ui"
 
 const CartTemplate = ({
   cart,

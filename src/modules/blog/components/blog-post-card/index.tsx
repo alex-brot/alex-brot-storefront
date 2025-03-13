@@ -1,10 +1,12 @@
-import Link from "next/link"
-
 import { PostPreview } from "types/blog"
 import Image from "next/image"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
-export default async function BlogPostCard({ preview }: { preview: PostPreview }) {
+export default async function BlogPostCard({
+  preview,
+}: {
+  preview: PostPreview
+}) {
   // Format the date for locale "de-AT" including date and time
   const formattedDate = new Date(preview.date).toLocaleString("de-AT", {
     day: "2-digit",

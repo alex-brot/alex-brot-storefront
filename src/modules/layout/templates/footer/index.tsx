@@ -121,10 +121,7 @@ export default async function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="/impressum"
-                    className="hover:text-ui-fg-base"
-                  >
+                  <a href="/impressum" className="hover:text-ui-fg-base">
                     Impressum
                   </a>
                 </li>

@@ -1,12 +1,11 @@
 import { addCustomerAddress } from "@lib/data/customer"
-import { Button, Heading, useToggleState } from "@medusajs/ui"
+import { Button, Heading } from "@medusajs/ui"
 import Input from "@modules/common/components/input"
-import React, { Component, useActionState, useEffect, useState } from "react"
+import React, { useActionState, useEffect, useState } from "react"
 import Modal from "../modal"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
 import CountrySelect from "@modules/checkout/components/country-select"
 import { HttpTypes } from "@medusajs/types"
-import { StateType } from "@lib/hooks/use-toggle-state"
 
 const AddressModal = ({
   addresses,
@@ -16,8 +15,8 @@ const AddressModal = ({
 }: {
   region: HttpTypes.StoreRegion
   addresses: HttpTypes.StoreCustomerAddress[]
-    state: boolean
-    closeModal: () => void
+  state: boolean
+  closeModal: () => void
 }) => {
   const [successState, setSuccessState] = useState(false)
 

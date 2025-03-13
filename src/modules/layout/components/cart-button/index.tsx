@@ -5,8 +5,8 @@ import { retrieveCustomer } from "@lib/data/customer"
 export default async function CartButton() {
   const cart = await retrieveCart().catch(() => null)
   const customer = await retrieveCustomer().catch(() => null)
-  
-  if(!customer) {
+
+  if (!customer) {
     return null
   }
 

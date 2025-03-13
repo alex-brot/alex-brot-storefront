@@ -5,7 +5,6 @@ import BlogsOverviewTemplate from "@modules/blog/templates/blogs-overview"
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 
-
 export async function generateStaticParams() {
   const countryCodes = await listRegions().then(
     (regions: StoreRegion[]) =>
@@ -28,4 +27,3 @@ export default async function BlogOverviewPage({
 
   return <BlogsOverviewTemplate previews={postPreviews} />
 }
-

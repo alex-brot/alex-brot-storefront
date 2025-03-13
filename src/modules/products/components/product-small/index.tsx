@@ -5,63 +5,62 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Thumbnail from "../thumbnail"
 
 export default function ProductSmall({
-product,
-increaseProductQuantity,
-decreaseProductQuantity,
-amount,
-isFeatured,
+  product,
+  increaseProductQuantity,
+  decreaseProductQuantity,
+  amount,
+  isFeatured,
 }: {
-    product: HttpTypes.StoreProduct
-    increaseProductQuantity: (product: HttpTypes.StoreProduct) => void
-    decreaseProductQuantity: (product: HttpTypes.StoreProduct) => void
-    amount: number
-    isFeatured?: boolean
-    region: HttpTypes.StoreRegion
+  product: HttpTypes.StoreProduct
+  increaseProductQuantity: (product: HttpTypes.StoreProduct) => void
+  decreaseProductQuantity: (product: HttpTypes.StoreProduct) => void
+  amount: number
+  isFeatured?: boolean
+  region: HttpTypes.StoreRegion
 }) {
+  // const pricedProduct = await listProducts({
+  //   regionId: region.id,
+  //   queryParams: { id: [product.id!] },
+  // }).then(({ response }) => response.products[0])
 
-    // const pricedProduct = await listProducts({
-    //   regionId: region.id,
-    //   queryParams: { id: [product.id!] },
-    // }).then(({ response }) => response.products[0])
+  // if (!pricedProduct) {
+  //   return null
+  // }
 
-    // if (!pricedProduct) {
-    //   return null
-    // }
+  function truncate(str: string | null) {
+    if (!str) return str
+    return str.length > 40 ? str.substring(0, 35) + "..." : str
+  }
 
-    function truncate(str: string | null) {
-        if (!str) return str
-        return str.length > 40 ? str.substring(0, 35) + "..." : str
-    }
+  return (
+    <div className="group">
+      <div
+        data-testid="product-wrapper"
+        className="relative hover:shadow-md transition-shadow duration-300 rounded-xl"
+      >
+        <div className="mx-6 space-y-2 py-6 flex flex-col justify-center items-center">
+          <div className="py-3">
+            <Thumbnail
+              className="z-0 w-64"
+              thumbnail={product.thumbnail}
+              images={product.images}
+              size="square"
+              isFeatured={isFeatured}
+            />
+          </div>
 
-    return (
-        <div className="group">
-            <div
-                data-testid="product-wrapper"
-                className="relative hover:shadow-md transition-shadow duration-300 rounded-xl"
+          <div className="flex justify-end w-fit">
+            <LocalizedClientLink
+              className="rounded-lg bg-primary-dark hover:bg-primary-full ease-in-out duration-150 text-white py-1 px-3.5"
+              href={`/products/${product.handle}`}
             >
-                <div className="mx-6 space-y-2 py-6 flex flex-col justify-center items-center">
-                    <div className="py-3">
-                        <Thumbnail
-                            className="z-0 w-64"
-                            thumbnail={product.thumbnail}
-                            images={product.images}
-                            size="square"
-                            isFeatured={isFeatured}
-                        />
-                    </div>
-
-                    <div className="flex justify-end w-fit">
-                        <LocalizedClientLink
-                            className="rounded-lg bg-primary-dark hover:bg-primary-full ease-in-out duration-150 text-white py-1 px-3.5"
-                            href={`/products/${product.handle}`}
-                        >
-                            More Information
-                        </LocalizedClientLink>
-                    </div>
-                </div>
-            </div>
+              More Information
+            </LocalizedClientLink>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 /*

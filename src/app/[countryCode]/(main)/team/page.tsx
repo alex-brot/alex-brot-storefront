@@ -1,12 +1,11 @@
-import PersonCard from "@modules/team/components/person-card";
-import { alex, devs } from "@modules/team/static/persons";
+import PersonCard from "@modules/team/components/person-card"
+import { alex, devs } from "@modules/team/static/persons"
 
 export default function TeamPage() {
   return (
     <>
       <div className="h-16"></div>
       <section id="team" className="bg-primary-lightest text-neutral-900">
-
         <div className="container flex flex-col justify-center">
           <div>
             <div className="mt-14 text-6xl font-semibold">
