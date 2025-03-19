@@ -51,7 +51,7 @@ function HeroSectionParallax({
             speed: -25,
             children: (
               <div className="bg-black bg-opacity-40 w-full h-full flex justify-center items-center relative top-1/2 -translate-y-1/2">
-                <div className="container flex justify-between items-center w-full absolute">
+                <div className="container flex justify-between items-center w-11/12 absolute">
                   {/* Left Side - Text */}
                   <div className="w-1/2 flex flex-col justify-center">
                     <h1 className="text-primary-light text-8xl font-bold">

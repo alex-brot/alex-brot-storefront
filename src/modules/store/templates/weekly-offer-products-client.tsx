@@ -4,30 +4,32 @@ import ProductPreview from "@modules/products/components/product-preview"
 import { WeeklyOffer } from "@lib/data/products"
 
 import {
-  HttpTypes,
+  HttpTypes, StoreCart,
   StoreCustomer,
   StoreProduct,
   StoreRegion,
 } from "@medusajs/types"
 import { useEffect, useState } from "react"
 import { getProductPrice } from "@lib/util/get-product-price"
-import { addToCart } from "@lib/data/cart"
+import {addToCart, removeFromCart} from "@lib/data/cart"
 import { useParams, useRouter } from "next/navigation"
 
 export default function WeeklyOfferProductsClientTemplate({
   weeklyoffers,
   region,
   customer,
+  cart
 }: {
   weeklyoffers: WeeklyOffer[]
   region: StoreRegion
-  customer?: StoreCustomer | null | undefined
+  customer?: StoreCustomer | null | undefined,
+  cart?: StoreCart | null
 }) {
   const [selectedProducts, setSelectedProducts] = useState(
     new Map<HttpTypes.StoreProduct, number>()
   )
 
-  const [isAdding, setIsAdding] = useState(false)
+  const [setIsAdding] = useState(false)
   const [totalPrice, setTotalPrice] = useState(0)
   const lineCount = useState(0)
   const countryCode = useParams().countryCode as string
@@ -59,6 +61,25 @@ export default function WeeklyOfferProductsClientTemplate({
     setTotalPrice(total)
   }, [selectedProducts])
 
+  useEffect(() => {
+
+    if(cart) {
+      const initialSelectedProducts = new Map<HttpTypes.StoreProduct, number>()
+      cart.items?.map(item => {
+        if(item.product) {
+          const product = weeklyoffers[0].products.find(product => product.id === item.product?.id);
+          if(product) {
+            initialSelectedProducts.set(product, item.quantity)
+          }
+        }
+      })
+      console.log(initialSelectedProducts)
+      setSelectedProducts(initialSelectedProducts)
+    } else {
+      console.log("No cart")
+    }
+  }, []);
+
   const optionsAsKeymap = (
     variantOptions: HttpTypes.StoreProductVariant["options"]
   ) => {
@@ -72,31 +93,63 @@ export default function WeeklyOfferProductsClientTemplate({
   }
 
   async function handleAddProducts(
-    selectedProducts: Map<StoreProduct, number>
+      selectedProducts: Map<StoreProduct, number>
   ) {
     if (!customer) return null
 
     setIsAdding(true)
 
     try {
-      for (let [product, quantity] of selectedProducts) {
+      // Loop over each selected product
+      for (let [product, selectedQuantity] of selectedProducts) {
+        // Find the quantity already in the cart (defaulting to 0 if not found)
+        let originalQuantity = 0
+        if (cart && cart.items) {
+          const cartItem = cart.items.find(
+              (item) => item.product?.id === product.id
+          )
+          if (cartItem) {
+            originalQuantity = cartItem.quantity
+          }
+        }
+
+        // Calculate the change (delta)
+        const delta = selectedQuantity - originalQuantity
+        // If there is no change, skip this product
+        if (delta === 0) continue
+
         if (!product.variants || product.variants.length === 0) {
           console.error("error, no product variant found")
-          return
+          continue
         }
 
         const selectedVariant = product.variants[0]
 
-        if (selectedVariant?.id) {
+        if (!selectedVariant?.id) {
+          console.error("error, no variant id found")
+          continue
+        }
+
+        // If delta > 0, add the additional items.
+        if (delta > 0) {
           await addToCart({
             variantId: selectedVariant.id,
-            quantity: quantity,
+            quantity: delta,
             countryCode, // Adjust country code if needed
+          })
+        }
+        // If delta < 0, remove the extra items.
+        else if (delta < 0) {
+          // Assumes you have a removeFromCart function.
+          await removeFromCart({
+            variantId: selectedVariant.id,
+            quantity: Math.abs(delta),
+            countryCode,
           })
         }
       }
     } catch (error) {
-      console.error("Error adding products to cart:", error)
+      console.error("Error updating cart:", error)
     }
 
     router.push("/cart")
@@ -165,28 +218,30 @@ export default function WeeklyOfferProductsClientTemplate({
         </div>
 
         {/*Total Price Box for Desktop*/}
-        <div className="w-1/4 relative hidden sm:flex justify-end">
-          <div className="w-fit lg:w-5/6 sticky top-4 h-fit border border-grey-30 bg-white rounded-lg shadow-md">
-            <div className="py-5 px-4 h-fit flex justify-between items-center">
-              <h1 className="text-2xl font-semibold">Gesamtpreis:</h1>
-              <h1 className="text-xl">{totalPrice}€</h1>
-            </div>
+        <div className="relative">
+          <div className="w-1/4 hidden sm:flex justify-end fixed">
+            <div className="w-fit lg:w-5/6 top-4 h-fit border border-grey-30 bg-white rounded-lg shadow-md">
+              <div className="py-5 px-4 h-fit flex justify-between items-center">
+                <h1 className="text-2xl font-semibold">Gesamtpreis:</h1>
+                <h1 className="text-xl">{totalPrice}€</h1>
+              </div>
 
-            <div className="flex justify-center px-4">
-              <small className="text-grey-40 text-center block">
-                Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem
-                Warenkorb hinzuzufügen.
-              </small>
-            </div>
+              <div className="flex justify-center px-4">
+                <small className="text-grey-40 text-center block">
+                  Klicken Sie auf das „+“-Symbol eines Produkts, um jenes zu Ihrem
+                  Warenkorb hinzuzufügen.
+                </small>
+              </div>
 
-            <div className="flex justify-center py-5 px-4">
-              <button
-                className="rounded-lg text-lg font-semibold py-2 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
-                onClick={() => handleAddProducts(selectedProducts)}
-                disabled={!customer}
-              >
-                {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
-              </button>
+              <div className="flex justify-center py-5 px-4">
+                <button
+                    className="rounded-lg text-lg font-semibold py-2 px-3.5 bg-secondary-light hover:bg-secondary-lighter duration-150 ease-in-out disabled:bg-grey-30 disabled:text-grey-70 disabled:cursor-not-allowed"
+                    onClick={() => handleAddProducts(selectedProducts)}
+                    disabled={!customer}
+                >
+                  {customer ? "Produkte hinzufügen" : "Melde dich zuerst an"}
+                </button>
+              </div>
             </div>
           </div>
         </div>

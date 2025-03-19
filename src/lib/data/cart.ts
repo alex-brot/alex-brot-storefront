@@ -147,6 +147,43 @@ export async function addToCart({
     .catch(medusaError)
 }
 
+export async function removeFromCart({
+                                       variantId,
+                                       quantity,
+                                       countryCode,
+                                     }: {
+  variantId: string
+  quantity: number
+  countryCode: string
+}) {
+  // Retrieve (or create) the cart for the provided country code
+  const cart = await getOrSetCart(countryCode)
+  if (!cart) {
+    throw new Error("Error retrieving or creating cart")
+  }
+
+  // Locate the line item corresponding to the variant
+  const lineItem = cart.items?.find(item => item.variant?.id === variantId)
+  if (!lineItem) {
+    console.error(`No line item found for variant ${variantId} in cart`)
+    return
+  }
+
+  // Calculate the new quantity by subtracting the removal quantity
+  const newQuantity = lineItem.quantity - quantity
+
+  // If the new quantity is above zero, update the line item
+  if (newQuantity > 0) {
+    await updateLineItem({
+      lineId: lineItem.id,
+      quantity: newQuantity,
+    })
+  } else {
+    // If the new quantity is zero or less, remove the line item from
+    await deleteLineItem(lineItem.id)
+  }
+}
+
 export async function updateLineItem({
   lineId,
   quantity,
