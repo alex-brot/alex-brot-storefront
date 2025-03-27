@@ -45,8 +45,8 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
             ${{ env.REGISTRY }}/${{ env.GITHUB_USER }}/${{ env.IMAGE_NAME }}:latest
           build-args: |
-            "MEDUSA_BACKEND=https://dev.medusa.alex-brot.stenz.dev"
-            "MEDUSA_PUBLISHABLE_KEY=${{ secrets.DEV_MEDUSA_PUBLISHABLE_KEY }}"
+            "MEDUSA_BACKEND=https://production.medusa.alex-brot.stenz.dev"
+            "MEDUSA_PUBLISHABLE_KEY=${{ secrets.MEDUSA_PUBLISHABLE_KEY }}"
             "APP_BLOG_POST_URL=https://strapi.alex-brot.stenz.dev"
             "APP_BLOG_API_TOKEN=${{ secrets.BLOG_API_TOKEN }}"
 
